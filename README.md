@@ -68,19 +68,29 @@ An Example Course Review:
 
 ## Wireframes
 
-(___TODO__: wireframes for all of the pages on your site; they can be as simple as photos of drawings or you can use a tool like Balsamiq, Omnigraffle, etc._)
+/login - page for logging in. Every user needs to login to access content.
 
-/list/create - page for creating a new shopping list
+![login](documentation/login_modal.png)
 
-![list create](documentation/list-create.png)
+/register - page for registering as a user.
 
-/list - page for showing all shopping lists
+![register](documentation/register_modal.png)
 
-![list](documentation/list.png)
+/course-list - page for showing all the courses
 
-/list/slug - page for showing specific shopping list
+![course list](documentation/course-list.png)
 
-![list](documentation/list-slug.png)
+/course-list?<filter_params> - showing courses filtered according to query parameters
+
+![filtered course list](documentation/course-filter.png)
+
+/review-page/<course-name> - page for showing all the reviews for the selected course
+
+![reviews](documentation/review-page.png)
+
+/write-a-review/<course-name> - page for writing a review for the selected course
+
+![write a review](documentation/write-a-review.png)
 
 ## Site map
 
