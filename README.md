@@ -1,49 +1,64 @@
-The content below is an example project proposal / requirements document. Replace the text below the lines marked "__TODO__" with details specific to your project. Remove the "TODO" lines.
-
-(___TODO__: your project name_)
-
-# Shoppy Shoperson 
+# NYUAD Course Review
 
 ## Overview
 
-(___TODO__: a brief one or two paragraph, high-level description of your project_)
+At NYU Abu Dhabi, selecting your courses for the upcoming semester is usually a very difficult task. It takes time and effort to search up potential courses that interest you and then search up reviews by scrolling and searching through years old posts on Facebook groups, asking your friends, or searching up on RateMyProfessor. Yet still sometimes students end up finding nothing.
 
-Remembering what to buy at the grocery store is waaaaay too difficult. Also, shopping for groceries when you're hungry leads to regrettable purchases. Sooo... that's where Shoppy Shoperson comes in!
-
-Shoppy Shoperson is a web app that will allow users to keep track of multiple grocery lists. Users can register and login. Once they're logged in, they can create or view their grocery list. For every list that they have, they can add items to the list or cross off items.
+NYUAD course review is a web app where students will be able to access all the courses that have been and are being taught at the Abu Dhabi campus of NYU and find reviews and ratings for any course. NYU students can register, login, read course reviews, and add or edit their own reviews on courses offered at NYUAD. This way the web app attempts to make the time taking task that students face every semester easy and centralized. 
 
 
 ## Data Model
 
-(___TODO__: a description of your application's data and their relationships to each other_) 
+The application will store course, course review, and user information.
 
-The application will store Users, Lists and Items
+* Each course will have its own categories/tags to facilitate filtering/search.
+* Each course will have its own course reviews.
+* Each course review for a course will have information about user, review text, ratings on certain metrics, and timestamp of the review post.
+* Each user can have a single review on a course, and multiple reviews overall through references.
 
-* users can have multiple lists (via references)
-* each list can have multiple items (by embedding)
+An Example Course:
 
-(___TODO__: sample documents_)
+```javascript
+{
+  name: 'Language of Computers',
+  code: 'CADT-UH 1013EQ', //unique for each course based on university assigned codes
+  level: 1000, //level of course
+  program: ['CADT', 'E','Q'] //a list of different programs or categories the course falls under
+  course_reviews: // a list of references to each course review document for the course
+  average_ratings: { // an object with average of values for all rating metrics for the course
+    Quality: 89,
+    Difficulty: 78,
+    Grading: 90,
+    Workload: 86
+  }
+}
+```
 
 An Example User:
 
 ```javascript
 {
-  username: "shannonshopper",
-  hash: // a password hash,
-  lists: // an array of references to List documents
+  username: "hasin",
+  email: 'mhs581@nyu.edu',
+  password: // a password hash,
+  reviews: // an array of references to course review documents by the user
 }
 ```
 
-An Example List with Embedded Items:
+An Example Course Review:
 
 ```javascript
 {
-  user: // a reference to a User object
-  name: "Breakfast foods",
-  items: [
-    { name: "pancakes", quantity: "9876", checked: false},
-    { name: "ramen", quantity: "2", checked: true},
-  ],
+  id: // a unique id for each course review
+  course: //a reference to a course object,
+  user: // a reference to a User object,
+  review: {
+    description: //a text based review of the course,
+    quality: // a numerical rating for course quality metric,
+    difficulty: // a numerical rating for course difficulty metric,
+    grading: // a numerical rating for course grading metric,
+    workload: // a numerical rating for course workload metric,
+  },
   createdAt: // timestamp
 }
 ```
