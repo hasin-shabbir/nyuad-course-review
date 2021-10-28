@@ -92,22 +92,23 @@ An Example Course Review:
 
 ![write a review](documentation/write-a-review.png)
 
-## Site map
+/edit-review/<course-name> - page for editing own review for the selected course
 
-(___TODO__: draw out a site map that shows how pages are related to each other_)
+![edit your review](documentation/edit_modal.png)
+
+## Site map
 
 ![sitemap](documentation/sitemap/coursereview_sitemap.png)
 
 ## User Stories or Use Cases
 
-(___TODO__: write out how your application will be used through [user stories](http://en.wikipedia.org/wiki/User_story#Format) and / or [use cases](https://www.mongodb.com/download-center?jmp=docs&_ga=1.47552679.1838903181.1489282706#previous)_)
-
-1. as non-registered user, I can register a new account with the site
+1. as non-registered user, I can register a new account with the site using my nyu email
 2. as a user, I can log in to the site
-3. as a user, I can create a new grocery list
-4. as a user, I can view all of the grocery lists I've created in a single list
-5. as a user, I can add items to an existing grocery list
-6. as a user, I can cross off items in an existing grocery list
+3. as a user, I can view and search in all of the course list
+4. as a user, I can view all of the reviews posted for a course
+5. as a user, I can write a review for a course
+6. as a user, I can edit my review for a course
+7. as a user, I can delete my review for a course
 
 ## Research Topics
 
