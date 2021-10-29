@@ -1,0 +1,19 @@
+{
+  "name": "hasin-shabbir-final-project",
+  "version": "1.0.0",
+  "description": "NYUAD Course Review Website",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nyu-csci-ua-0467-001-fall-2021/hasin-shabbir-final-project.git"
+  },
+  "author": "hasin-shabbir",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nyu-csci-ua-0467-001-fall-2021/hasin-shabbir-final-project/issues"
+  },
+  "homepage": "https://github.com/nyu-csci-ua-0467-001-fall-2021/hasin-shabbir-final-project#readme"
+}
