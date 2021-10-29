@@ -70,4 +70,9 @@ app.post('/edit-review/:course',(req,res)=>{
     res.redirect('/edit-a-review/:course') //redirect to reviews page for the course upon successful review edit
 });
 
-app.listen(3000);
+//ENDPOINT FOR API to respond to GET requests from the React App
+app.get("/api", (req, res) => {
+    res.json({ message: "Hello from server!" });
+});
+
+app.listen(3000,()=>{console.log('SERVER STARTED');});
