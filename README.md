@@ -135,14 +135,14 @@ An Example Course Review:
 15 points total out of 8 required points 
 
 
-## [Link to Initial Main Project File](app.js) 
-
-(___TODO__: create a skeleton Express application with a package.json, app.js, views folder, etc. ... and link to your initial app.js_)
+## [Link to Initial Main Project File](server/app.js) 
 
 ## Annotations / References Used
 
-(___TODO__: list any tutorials/references/etc. that you've based your code off of_)
-
-1. [passport.js authentication docs](http://passportjs.org/docs) - (add link to source code that was based on this)
-2. [tutorial on vue.js](https://vuejs.org/v2/guide/) - (add link to source code that was based on this)
+1. [React Documentation](https://reactjs.org/docs/getting-started.html)
+2. [Redux State Management Documentation](https://react-redux.js.org/tutorials/quick-start)
+3. [Firebase Authentication Documentation](https://firebase.google.com/docs/auth)
+4. [Documentation for loadable-components](https://loadable-components.com/docs/)
+5. [Documentation for Material UI](https://mui.com/getting-started/usage/)
+6. [Parsley form validation documentation](https://parsleyjs.org/doc/index.html)
 
