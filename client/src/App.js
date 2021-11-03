@@ -6,15 +6,16 @@ function App() {
   const [data,setData] = useState(null);
   
   useEffect(()=>{
+    console.log('hello');
     fetch('/api')
-      .then((res)=>res.json)
+      .then((res)=>res.json())
       .then((data)=>setData(data.message));
   },[]);
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={logo} className="App-logo" alt="logo"/>
         <p>
           {!data ? "Loading..." : data}
         </p>
