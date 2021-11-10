@@ -190,7 +190,7 @@ const CourseReviewForm = (props) =>{
                 </>
             )}
                 
-            <input type="submit" value="Delete Review" />
+            <input type="submit" value={props.type === "new" ? "submit review" : props.type} />
         </form>
           
     </>
