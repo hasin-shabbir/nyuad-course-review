@@ -118,7 +118,7 @@ An Example Course Review:
     * Due to complexity of effectively managing user authentication through multiple platforms using Firebase, assigned it 4 points.
 * (5 points) React.js (Front-end framework)
     * using the popular React.js as the frontend framework
-    * will also research on application state management using React Redux (an additional library to be used in conjunction with React)
+    * will also research on application state management using React Hooks
     * will be using react-router-dom for front-end routing
     * since React requires understanding of more advanced concepts including libraries to be used as a supplement/complement, and is a challenging framework to learn, I have assigned it 5 points.
 * (2 points) loadable-components (Javascript library)
