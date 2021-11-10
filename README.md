@@ -120,6 +120,7 @@ An Example Course Review:
     * using the popular React.js as the frontend framework
     * will also research on application state management using React Hooks
     * will be using react-router-dom for front-end routing
+    * styled-components library for component styling
     * since React requires understanding of more advanced concepts including libraries to be used as a supplement/complement, and is a challenging framework to learn, I have assigned it 5 points.
 * (2 points) loadable-components (Javascript library)
     * To be used to import components into React dynamically and divide the entire web application into bundles/chunks
