@@ -21,7 +21,7 @@ const CourseReviewItem = (props) =>{
     const handleFormSubmit = (submitted) => {
         if (submitted){
             setEditFormDisplay(false);
-            props.handleEdit(true);
+            props.handleEditOrDelete(true);
         }
     }
 
@@ -75,6 +75,11 @@ const CourseReviewItem = (props) =>{
                                     </Row>
                                 )
                             }
+                            <Row>
+                                <Col1>
+                                    <CourseReviewForm reviewId={props.uniqueId} type="delete" checkSubmit = {handleFormSubmit}/>
+                                </Col1>
+                            </Row>
                         </Col1>
                     </ReviewCard>
                 </Col1>

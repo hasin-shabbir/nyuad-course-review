@@ -178,6 +178,24 @@ app.post("/edit-review", (req, res) => {
 
 });
 
+app.post("/delete-review", (req, res) => {
+    const uid = req.body.rev_id;
+
+    const searchQuery = {
+        _id: uid
+    }    
+
+    CourseReview.findOneAndDelete(searchQuery, function (err, docs) {
+        if (err){
+            console.log(err);
+            res.status(500).json({err: "error updating"});
+        }else{
+            res.status(200).json({success: "success"});
+        }
+    });
+
+});
+
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));

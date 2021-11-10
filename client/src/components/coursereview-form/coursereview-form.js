@@ -57,8 +57,12 @@ const CourseReviewForm = (props) =>{
     const handleSubmit = (e) => {
         e.preventDefault();
         let params = {};
-
-        if (props.type==="new"){
+        if (props.type ==="delete"){
+            params = {
+                rev_id: props.reviewId
+            }
+        }
+        else if (props.type==="new"){
             params = {
                 quality: quality,
                 difficulty: difficulty,
@@ -114,62 +118,82 @@ const CourseReviewForm = (props) =>{
                 props.checkSubmit(false);
             });
         }
+        else if (props.type ==="delete"){
+            axios.post('/delete-review',params)
+            .then(function (response) {
+                console.log(response.data);
+                props.checkSubmit(true);
+            })
+            .catch(function (err) {
+                console.log(err);
+                props.checkSubmit(false);
+            });
+        }
        
     }
 
     return (
-      <form onSubmit={handleSubmit}>
-        <label>
-          Quality:
-          <input
-            name='quality'
-            type="text"
-            value={quality}
-            onChange={handleRating}
-          />
-        </label>
+    <>
+        
+        <form onSubmit={handleSubmit}>
+            
+            {props.type!=="delete" && (
+                <>
+                    <label>
+                        Quality:
+                        <input
+                            name='quality'
+                            type="text"
+                            value={quality}
+                            onChange={handleRating}
+                        />
+                    </label>
 
-        <label>
-          Difficulty:
-          <input
-            name='difficulty'
-            type="text"
-            value={difficulty}
-            onChange={handleRating}
-          />
-        </label>
+                    <label>
+                        Difficulty:
+                        <input
+                            name='difficulty'
+                            type="text"
+                            value={difficulty}
+                            onChange={handleRating}
+                        />
+                    </label>
 
-        <label>
-          Grading:
-          <input
-            name='grading'
-            type="text"
-            value={grading}
-            onChange={handleRating}
-          />
-        </label>
+                    <label>
+                        Grading:
+                        <input
+                            name='grading'
+                            type="text"
+                            value={grading}
+                            onChange={handleRating}
+                        />
+                    </label>
 
-        <label>
-          Workload:
-          <input
-            name='workload'
-            type="text"
-            value={workload}
-            onChange={handleRating}
-          />
-        </label>
+                    <label>
+                        Workload:
+                        <input
+                            name='workload'
+                            type="text"
+                            value={workload}
+                            onChange={handleRating}
+                        />
+                    </label>
 
-        <label>
-            Review Text: 
-            <textarea
-                placeholder="enter review text here"
-                onChange = {handleTextChange}    
-                value = {textReview}
-            />
-        </label>
-
-        <input type="submit" value="Submit" />
-      </form>
+                    <label>
+                        Review Text: 
+                        <textarea
+                            placeholder="enter review text here"
+                            onChange = {handleTextChange}    
+                            value = {textReview}
+                        />
+                    </label>
+                </>
+            )}
+                
+            <input type="submit" value="Delete Review" />
+        </form>
+          
+    </>
     );
 }
 

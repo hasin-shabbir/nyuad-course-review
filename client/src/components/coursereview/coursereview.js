@@ -83,7 +83,7 @@ const CourseReview = (props) =>{
                         }
                         text={reviews[rev].review.description}
                         uniqueId={reviews[rev]._id}
-                        handleEdit = {handleReviewEdit}
+                        handleEditOrDelete = {handleReviewEdit}
                     />)
                     })
             }
