@@ -148,6 +148,35 @@ app.post("/add-review", (req, res) => {
 
 });
 
+app.post("/edit-review", (req, res) => {
+    const quality = req.body.quality;
+    const difficulty = req.body.difficulty;
+    const workload = req.body.workload;
+    const grading = req.body.grading;
+    const textReview = req.body.textReview;
+    const uid = req.body.rev_id;
+
+    const updateObj = {
+        review: {
+            description: textReview,
+            quality: quality,
+            difficulty: difficulty,
+            grading: grading,
+            workload: workload
+        },
+        timestamp: Date.now()
+    }    
+
+    CourseReview.findByIdAndUpdate(uid,updateObj,(err,result)=>{
+        if (err){
+            console.log(err);
+            res.status(500).json({err: "error updating"});
+        }else{
+            res.status(200).json({success: "success"});
+        }
+    })
+
+});
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {

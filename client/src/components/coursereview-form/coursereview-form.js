@@ -5,12 +5,6 @@ import axios from "axios";
 
 import "./coursereview-form.css";
 
-import { 
-    Container, 
-    Row,
-    Col1
-} from "../../containers/rootContainers";
-
 function isNumeric(str) {
     if (typeof str != "string") return false // we only process strings!  
     return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
@@ -62,14 +56,28 @@ const CourseReviewForm = (props) =>{
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
-        const params = {
-            quality: quality,
-            difficulty: difficulty,
-            grading: grading,
-            workload: workload,
-            textReview: textReview
+        let params = {};
+
+        if (props.type==="new"){
+            params = {
+                quality: quality,
+                difficulty: difficulty,
+                grading: grading,
+                workload: workload,
+                textReview: textReview
+            }
         }
+        else if (props.type==="edit"){
+            params = {
+                rev_id: props.reviewId,
+                quality: quality,
+                difficulty: difficulty,
+                grading: grading,
+                workload: workload,
+                textReview: textReview
+            }
+        }
+        
         
         let emptyField = false;
 
@@ -84,15 +92,29 @@ const CourseReviewForm = (props) =>{
             return;
         }
 
-        axios.post('/add-review',params)
-        .then(function (response) {
-            console.log(response.data);
-            props.checkSubmit(true);
-        })
-        .catch(function (err) {
-            console.log(err);
-            props.checkSubmit(false);
-        });
+        if (props.type==="new"){
+            axios.post('/add-review',params)
+            .then(function (response) {
+                console.log(response.data);
+                props.checkSubmit(true);
+            })
+            .catch(function (err) {
+                console.log(err);
+                props.checkSubmit(false);
+            });
+        }
+        else if (props.type ==="edit"){
+            axios.post('/edit-review',params)
+            .then(function (response) {
+                console.log(response.data);
+                props.checkSubmit(true);
+            })
+            .catch(function (err) {
+                console.log(err);
+                props.checkSubmit(false);
+            });
+        }
+       
     }
 
     return (

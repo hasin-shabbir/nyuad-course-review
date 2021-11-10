@@ -4,7 +4,8 @@ import styled from "styled-components";
 import { 
     Container, 
     Row,
-    Col1
+    Col1,
+    FormShower
 } from "../../containers/rootContainers";
 import CourseReviewForm from "../coursereview-form/coursereview-form";
 import CourseReviewItem from "../coursereview-item/coursereview-item";
@@ -23,6 +24,10 @@ const CourseReview = (props) =>{
             setAddNewReviewDisplay(false);
             setNumSubmissions(numSubmissions+1);
         }
+    }
+
+    const handleReviewEdit = (edited) => {
+        setNumSubmissions(numSubmissions+1);
     }
 
     const fetchReviews = () => {
@@ -65,7 +70,7 @@ const CourseReview = (props) =>{
             {
                 Object.keys(reviews).slice(0).reverse().map((rev, key)=>{
                     console.log(rev);
-                    return (<CourseReviewItem 
+                    return (<CourseReviewItem
                         key={key}
                         username="random user"
                         metrics={
@@ -78,6 +83,7 @@ const CourseReview = (props) =>{
                         }
                         text={reviews[rev].review.description}
                         uniqueId={reviews[rev]._id}
+                        handleEdit = {handleReviewEdit}
                     />)
                     })
             }
@@ -100,20 +106,6 @@ const CourseReview = (props) =>{
 const CourseTitle = styled.h1`
     color: #57068c;
     text-align: center;
-`;
-
-const FormShower = styled.p`
-    display: inline-block;
-    text-transform: capitalize;
-    padding: 10px;
-    margin: 5px auto;
-    color: #57068c;
-    cursor: pointer;
-    border: 1px solid #57068c;
-    &:hover{
-        background-color: #57068c;
-        color: white;
-    }
 `;
 
 export default CourseReview;

@@ -1,14 +1,30 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 
 import { 
     Container, 
     Row,
     Col1,
-    Col4
+    Col4,
+    FormShower
 } from "../../containers/rootContainers";
 
+import CourseReviewForm from "../coursereview-form/coursereview-form";
+
 const CourseReviewItem = (props) =>{
+    const [editFormDisplay, setEditFormDisplay] = useState(false);
+
+    const handleFormToggle = () =>{
+        setEditFormDisplay(!editFormDisplay);
+    }
+
+    const handleFormSubmit = (submitted) => {
+        if (submitted){
+            setEditFormDisplay(false);
+            props.handleEdit(true);
+        }
+    }
+
     return (
         <Container>
             <Row>
@@ -36,10 +52,29 @@ const CourseReviewItem = (props) =>{
                             </ReviewRow>
 
                             <ReviewRow>
-                                <ReviewText>
-                                    {props.text}
-                                </ReviewText>
+                                <Col1>
+                                    <ReviewText>
+                                        {props.text}
+                                    </ReviewText>
+                                </Col1>
                             </ReviewRow>
+
+                            <ReviewRow>
+                                <Col1>
+                                    <FormShower onClick={handleFormToggle}>
+                                        {editFormDisplay ? "close form" : "edit review"}
+                                    </FormShower>        
+                                </Col1>
+                            </ReviewRow>
+                            {
+                                editFormDisplay && (
+                                    <Row>
+                                        <Col1>
+                                            <CourseReviewForm reviewId={props.uniqueId} type="edit" checkSubmit = {handleFormSubmit}/>
+                                        </Col1>
+                                    </Row>
+                                )
+                            }
                         </Col1>
                     </ReviewCard>
                 </Col1>
@@ -56,6 +91,7 @@ const ReviewCard = styled.div`
     min-height: 200px;
     background-color: #dedede;
     padding: 2px 10px;
+    margin-bottom: 10px;
 `;
 
 const ReviewRow = styled.div`

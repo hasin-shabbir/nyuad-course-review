@@ -38,3 +38,18 @@ export const Col4 = styled.div`
 export const Col5 = styled.div`
     width: 20%;
 `;
+
+
+export const FormShower = styled.p`
+    display: inline-block;
+    text-transform: capitalize;
+    padding: 10px;
+    margin: 5px auto;
+    color: #57068c;
+    cursor: pointer;
+    border: 1px solid #57068c;
+    &:hover{
+        background-color: #57068c;
+        color: white;
+    }
+`;
