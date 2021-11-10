@@ -87,9 +87,11 @@ const CourseReviewForm = (props) =>{
         axios.post('/add-review',params)
         .then(function (response) {
             console.log(response.data);
+            props.checkSubmit(true);
         })
         .catch(function (err) {
             console.log(err);
+            props.checkSubmit(false);
         });
     }
 

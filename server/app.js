@@ -88,6 +88,16 @@ app.get("/api", (req, res) => {
     res.json({ message: `Hello from server at ${PORT}` });
 });
 
+app.get("/get-reviews",(req,res)=>{
+    CourseReview.find({}, function(err, reviews, count) {
+        if (err){
+            console.log(err);
+        }else{
+            res.json(reviews);
+        }
+    });
+})
+
 app.post("/add-review", (req, res) => {
     const quality = req.body.quality;
     const difficulty = req.body.difficulty;
