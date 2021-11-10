@@ -1,15 +1,17 @@
+require('dotenv').config();
 require('./db');
 
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 
-const PORT = process.env.PORT || 3001;
+const PORT = parseInt(process.env.PORT) || 3001;
 
 const app = express();
 
 //for sessions
 const session = require('express-session');
+const { Console } = require('console');
 const sessionOptions = {
     secret: 'secret cookie',
     resave: true,

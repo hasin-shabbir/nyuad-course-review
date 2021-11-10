@@ -1,6 +1,7 @@
 // 1ST DRAFT DATA MODEL
 const mongoose = require('mongoose');
 
+const dbURI = process.env.MONGODB_URI;
 // users
 // * our site requires authentication... (Google firebase)
 // * so users have a username and password
@@ -59,7 +60,7 @@ const Course = new mongoose.Schema({
     _id: true
 });
 
-mongoose.connect('mongodb://localhost/final_project');
+// mongoose.connect(dbURI);
 
 mongoose.model('User', User);
 mongoose.model('CourseReview', CourseReview);
