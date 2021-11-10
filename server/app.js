@@ -1,5 +1,6 @@
 require('dotenv').config();
 require('./db');
+const mongoose = require('mongoose');
 
 const express = require('express');
 const path = require('path');
@@ -20,13 +21,18 @@ const sessionOptions = {
 app.use(session(sessionOptions));
 
 // body parser setup
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 // serve static files
 app.use(express.static(path.join(__dirname, 'public')));
+
+const Course = mongoose.model('Course');
+const User = mongoose.model('User');
+const CourseReview = mongoose.model('CourseReview');
 
 app.get('/', (req, res) => {
     // res.redirect('/login');
@@ -81,6 +87,57 @@ app.post('/edit-review/:course',(req,res)=>{
 app.get("/api", (req, res) => {
     res.json({ message: `Hello from server at ${PORT}` });
 });
+
+app.post("/add-review", (req, res) => {
+    const quality = req.body.quality;
+    const difficulty = req.body.difficulty;
+    const workload = req.body.workload;
+    const grading = req.body.grading;
+    const textReview = req.body.textReview;
+    
+    
+    const sampleCourse = new Course({
+        name: 'Sample',
+        code: 'ABC-UH 1000XEQ',
+        level: 1000,
+        program: ['X','E','Q','CDAD'],
+        averageRatings: {
+            quality: 100,
+            difficulty: 100,
+            grading: 100,
+            workload: 100
+        }
+    });
+
+    const sampleUser = new User({
+        username: 'John Doe',
+        password: 'Random Hash',
+        email: 'johndoe@nyu.edu',
+        reviews: []
+    });
+
+    new CourseReview({
+        course: sampleCourse,
+        user: sampleUser,
+        review: {
+            description: textReview,
+            quality: quality,
+            difficulty: difficulty,
+            grading: grading,
+            workload: workload
+        },
+        timestamp: Date.now()
+    }).save(function(err, newreview, count) {
+        if (err){
+            console.log(err);
+            res.status(500).json({err: 'error in saving'});
+        }else{
+            res.status(200).json({posted: 'review posted'});
+        }
+    });
+
+});
+
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {

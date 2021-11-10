@@ -8,6 +8,7 @@ import {
 import logo from './logo.svg';
 import './App.css';
 import Courselink from "./components/courselink/courselink";
+import CourseReview from "./components/coursereview/coursereview";
 
 function App() {
   // const [data,setData] = useState(null);
@@ -28,30 +29,30 @@ function App() {
     //     </p>
     //   </header>
     // </div>
-<>
-    <Router>
-      <Routes>
-        <Route path="/" 
-          element=
-            {
-              <Courselink 
-                courseName = "sample course" 
-                courseCode = "ABC-UH 1000EQX" 
-                level={1000} 
-                program={['ABC','E','Q','X','CDAD']}
-              />
-            }
-        />
-        
-        <Route path="/sample-course"
-          element= {<div>Hello</div>}
-        />
+    <>
+        <Router>
+          <Routes>
+            <Route path="/" 
+              element=
+                {
+                  <Courselink 
+                    courseName = "sample course" 
+                    courseCode = "ABC-UH 1000EQX" 
+                    level={1000} 
+                    program={['ABC','E','Q','X','CDAD']}
+                  />
+                }
+            />
+            
+            <Route path="/sample-course"
+              element= {<CourseReview />}
+            />
 
-      </Routes>
-    </Router>
-    {/* //A list will be generated based on courses stored in db */}
-    
-</>  
+          </Routes>
+        </Router>
+        {/* //A list will be generated based on courses stored in db */}
+        
+    </>  
   );
 }
 

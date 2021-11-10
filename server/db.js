@@ -54,13 +54,13 @@ const Course = new mongoose.Schema({
     code: {type: String, required: true}, // unique code of the course but stored as string
     level: {type: Number, required: true}, // numerical level of the course
     program: {type: [String], required: true}, // a string list of different programs or categories the course falls under
-    course_reviews: [{type: mongoose.Schema.Types.ObjectId, ref:'CourseReview'}], // list of references to the course reviews for the course
+    // course_reviews: [{type: mongoose.Schema.Types.ObjectId, ref:'CourseReview'}], // list of references to the course reviews for the course
     average_ratings: {type: averageRating, required: true}, // object of average numerical rating metrics
 }, {
     _id: true
 });
 
-// mongoose.connect(dbURI);
+mongoose.connect(dbURI);
 
 mongoose.model('User', User);
 mongoose.model('CourseReview', CourseReview);
