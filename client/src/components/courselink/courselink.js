@@ -20,6 +20,8 @@ const Courselink = (props) =>{
 
     return (
         <>
+        {user ? (
+            <>
             <h1>Hello {user}!</h1>
             <Container>
                 <Row>
@@ -37,6 +39,11 @@ const Courselink = (props) =>{
                     </Col1>
                 </Row>
             </Container>
+            </>
+        ): (
+            <p><a href="/">Login</a> to access this page!</p>
+        )}
+            
         </>
     )
 }
