@@ -9,13 +9,13 @@ import "./login-form.css";
 
 const LoginForm = (props) => {
 
-    const [userName, setUserName] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [redirect, setRedirect] = useState(null);
 
     const handleSubmit = (e)=>{
         e.preventDefault();
-        if (userName=== "" || password === ""){
+        if (email=== "" || password === ""){
             alert("ENTER MISSING FORM VALUES!");
         }
         else if (password.length<8){
@@ -23,13 +23,13 @@ const LoginForm = (props) => {
         }
         else{
             const params = {
-                username: userName,
+                email: email,
                 password: password
             };
             axios.post("/login",params).then(
                 function(response){
                     if (response.data.success){
-                        console.log(response.data.user);
+                        localStorage.setItem("course-rev-user", response.data.user);
                         setRedirect("/courses");
                     }else{
                         alert(response.data.message);
@@ -39,8 +39,8 @@ const LoginForm = (props) => {
         }
     }
 
-    const handleUsername = (e) =>{
-        setUserName(e.target.value);
+    const handleEmail = (e) =>{
+        setEmail(e.target.value);
     }
 
     const handlePassword = (e) => {
@@ -55,7 +55,7 @@ const LoginForm = (props) => {
             (<div>
             <h1>Login</h1>
                 <form method="POST">
-                    <div>Email: <input type="text" name="username" value={userName} onChange={handleUsername}/></div>
+                    <div>Email: <input type="text" name="email" value={email} onChange={handleEmail}/></div>
                     <div>Password: <input type="password" name="password" value={password} onChange={handlePassword}/></div>
                     <div><input type="submit" value="login" onClick={handleSubmit}/></div>
                 </form>

@@ -10,13 +10,14 @@ import "./register-form.css";
 const RegisterForm = (props) => {
 
     const [userName, setUserName] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
     const [redirect, setRedirect] = useState(null);
 
     const handleSubmit = (e)=>{
         e.preventDefault();
-        if (userName=== "" || password === ""){
+        if (userName=== "" || password === "" || email === ""){
             alert("ENTER MISSING FORM VALUES!");
         }
         else if (password.length<8){
@@ -28,6 +29,7 @@ const RegisterForm = (props) => {
         else{
             const params = {
                 username: userName,
+                email: email,
                 password: password
             };
             axios.post("/register",params).then(
@@ -40,6 +42,10 @@ const RegisterForm = (props) => {
                 }
             )
         }
+    }
+
+    const handleEmail = (e) =>{
+        setEmail(e.target.value);
     }
 
     const handleUsername = (e) =>{
@@ -62,7 +68,8 @@ const RegisterForm = (props) => {
             (<div>
             <h1>Register</h1>
                 <form method="POST">
-                    <div>Email: <input type="text" name="username" value={userName} onChange={handleUsername}/></div>
+                    <div>Username: <input type="text" name="username" value={userName} onChange={handleUsername}/></div>
+                    <div>Email: <input type="text" name="email" value={email} onChange={handleEmail}/></div>
                     <div>Password: <input type="password" name="password" value={password} onChange={handlePassword}/></div>
                     <div>Re-enter password: <input type="password" name="password2" value={password2} onChange={handlePassword2}/></div>
                     <div><input type="submit" value="Register" onClick={handleSubmit}/></div>

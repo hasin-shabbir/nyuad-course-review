@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import styled from "styled-components";
 
 import { 
@@ -8,8 +8,18 @@ import {
 } from "../../containers/rootContainers";
 
 const Courselink = (props) =>{
+    const [user,setUser] = useState(null);
+    useEffect(() => {
+        const loggedInUser = localStorage.getItem("course-rev-user");
+        if (loggedInUser) {
+          const foundUser = loggedInUser;
+          setUser(foundUser);
+        }
+      }, []);
+
     return (
         <>
+            <h1>Hello {user}!</h1>
             <Container>
                 <Row>
                     <Col1>

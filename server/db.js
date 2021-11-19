@@ -12,6 +12,7 @@ const User = new mongoose.Schema({
     // email address provided by firebase authentication plugin
     username: {type: String, required: true},
     password: {type: String, required: true},
+    email : {type: String, required: true},
     reviews:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'CourseReview' }]
 });
 

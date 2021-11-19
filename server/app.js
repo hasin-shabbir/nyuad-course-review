@@ -54,20 +54,20 @@ app.get('/login', (req, res) => {
 
 app.post('/login',(req,res)=>{
     //login form handling
-    if (!(req.body.password && req.body.username)){
+    if (!(req.body.password && req.body.email)){
         res.json({success: false, message: "form values missing!"});
     }else{
-        const inputUser = req.body.username.toLowerCase();
+        const inputEmail = req.body.email.toLowerCase();
         const userpass = req.body.password;
-        User.findOne({username: inputUser},(err,user)=>{
+        User.findOne({"email": inputEmail},(err,user)=>{
             if (!err && user){
                 const storedHash = user.password;
                 bcrypt.compare(userpass,storedHash,function(err,passwordDidMatch){
                     if (passwordDidMatch){
                         req.session.regenerate((err)=>{
                             if (!err){
-                                req.session.username = inputUser;
-                                res.json({success: true, user: inputUser});
+                                req.session.username = user.username;
+                                res.json({success: true, user: user.username});
                             }else{
                                 res.json({success: true, message: 'an error occured, please try again later!'});
                             }
@@ -88,23 +88,25 @@ app.post('/login',(req,res)=>{
 
 app.post('/register',(req,res)=>{
     //login form handling
-    if (!(req.body.password && req.body.username)){
+    if (!(req.body.password && req.body.username && req.body.email)){
         res.json({success: false, message: "form values missing!"});
     }
     else{
         const inputUser = req.body.username.toLowerCase();
+        const inputEmail = req.body.email.toLowerCase();
         const userpass = req.body.password;
         if (userpass.length<8){
             res.json({success: false, message: "password shorter than 8 characters!"});
         }else{
-            User.findOne({"username": inputUser}, (err,result)=>{
+            User.findOne({"email": inputEmail}, (err,result)=>{
                 if (result){
-                    res.json({success: false, message: "user already exists!"});
+                    res.json({success: false, message: "email already in use!"});
                 }else{
                     bcrypt.genSalt(10,function(err,salt){
                         bcrypt.hash(userpass,salt,function(err,hash){
                             new User({
                                 username: inputUser,
+                                email: inputEmail,
                                 password: hash
                             }).save(function(err,newUser){
                                 if (err){
