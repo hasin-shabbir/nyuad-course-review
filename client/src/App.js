@@ -21,6 +21,14 @@ function App() {
   //     .then((res)=>res.json())
   //     .then((data)=>setData(data.message));
   // },[]);
+  const [user,setUser] = useState(null);
+  useEffect(() => {
+      const loggedInUser = localStorage.getItem("course-rev-user");
+      if (loggedInUser) {
+        const foundUser = loggedInUser;
+        setUser(foundUser);
+      }
+    }, []);
 
   return (
 
@@ -45,13 +53,14 @@ function App() {
 
             <Route path="/courses" 
               element=
-                {
+                { user ? 
                   <Courselink 
                     courseName = "sample course" 
                     courseCode = "ABC-UH 1000EQX" 
                     level={1000} 
                     program={['ABC','E','Q','X','CDAD']}
-                  />
+                  /> 
+                  : <Navigate to="/" />
                 }
             />
             
