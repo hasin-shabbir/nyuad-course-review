@@ -16,7 +16,7 @@ const Courselink = (props) =>{
           const foundUser = loggedInUser;
           setUser(foundUser);
         }
-      });
+    });
 
     return (
         <>

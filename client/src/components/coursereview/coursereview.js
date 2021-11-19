@@ -19,6 +19,15 @@ const CourseReview = (props) =>{
         setAddNewReviewDisplay(!addNewReviewDisplay);
     }
 
+    const [user,setUser] = useState(null);
+    useEffect(() => {
+        const loggedInUser = localStorage.getItem("course-rev-user");
+        if (loggedInUser) {
+          const foundUser = loggedInUser;
+          setUser(foundUser);
+        }
+    });
+
     const handleFormSubmit = (submitted) => {
         if (submitted){
             setAddNewReviewDisplay(false);
@@ -42,6 +51,9 @@ const CourseReview = (props) =>{
 
     return (
         <>
+        {user ? (
+            <>
+            <h1>Currently logged in as: {user}!</h1>
             <Container>
                 <Row>
                     <Col1>
@@ -87,18 +99,10 @@ const CourseReview = (props) =>{
                     />)
                     })
             }
-            {/* <CourseReviewItem 
-                username="random user"
-                metrics={
-                    {
-                        quality: 82,
-                        difficulty: 76,
-                        grading: 92,
-                        workload: 80
-                    }
-                }
-                text="This is a sample review. To make it a paragraph, using some random text.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vestibulum lorem quis nisl gravida sollicitudin ac non ipsum. In feugiat tincidunt pellentesque. Ut commodo ultricies massa, non interdum nisl ornare mattis. Pellentesque eget ipsum ligula. Nulla tincidunt faucibus posuere. In quam lectus, vehicula nec tellus id, lobortis accumsan purus. In tempor augue a dolor tincidunt ultrices. Pellentesque maximus dignissim dapibus."
-            /> */}
+            </>
+        ) : (
+            <p><a href="/">Login</a> to access this page!</p>
+        )}
         </>
     )
 }
