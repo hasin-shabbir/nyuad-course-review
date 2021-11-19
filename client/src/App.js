@@ -2,13 +2,15 @@ import React, {useEffect,useState} from "react";
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  Navigate
 } from "react-router-dom";
 
-import logo from './logo.svg';
 import './App.css';
 import Courselink from "./components/courselink/courselink";
 import CourseReview from "./components/coursereview/coursereview";
+import LoginForm from "./components/login-form/login-form";
+import RegisterForm from "./components/register-form/register-form";
 
 function App() {
   // const [data,setData] = useState(null);
@@ -21,18 +23,27 @@ function App() {
   // },[]);
 
   return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo"/>
-    //     <p>
-    //       {!data ? "Loading..." : data}
-    //     </p>
-    //   </header>
-    // </div>
+
     <>
         <Router>
           <Routes>
-            <Route path="/" 
+          <Route path="/" element = {<Navigate to="/login" />}
+          />
+          <Route path="/login" 
+            element=
+              {
+                <LoginForm/>
+              }
+          />
+          <Route path="/register" 
+            element=
+              {
+                <RegisterForm/>
+              }
+          />
+          
+
+            <Route path="/courses" 
               element=
                 {
                   <Courselink 

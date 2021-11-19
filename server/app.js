@@ -1,5 +1,6 @@
 require('dotenv').config();
 require('./db');
+const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 
 const express = require('express');
@@ -42,10 +43,10 @@ app.get('/register', (req, res) => {
     //registration page
 });
 
-app.post('/register', (req, res) => {
-    //registration form handling
-    // res.redirect('/course-list'); //redirect to course-list upon successful registration by logging in the user
-});
+// app.post('/register', (req, res) => {
+//     //registration form handling
+//     // res.redirect('/course-list'); //redirect to course-list upon successful registration by logging in the user
+// });
 
 app.get('/login', (req, res) => {
     //login page
@@ -53,8 +54,73 @@ app.get('/login', (req, res) => {
 
 app.post('/login',(req,res)=>{
     //login form handling
+    if (!(req.body.password && req.body.username)){
+        res.json({success: false, message: "form values missing!"});
+    }else{
+        const inputUser = req.body.username.toLowerCase();
+        const userpass = req.body.password;
+        User.findOne({username: inputUser},(err,user)=>{
+            if (!err && user){
+                const storedHash = user.password;
+                bcrypt.compare(userpass,storedHash,function(err,passwordDidMatch){
+                    if (passwordDidMatch){
+                        req.session.regenerate((err)=>{
+                            if (!err){
+                                req.session.username = inputUser;
+                                res.json({success: true, user: inputUser});
+                            }else{
+                                res.json({success: true, message: 'an error occured, please try again later!'});
+                            }
+                        })
+                    }else{
+                        res.json({success: false, message: 'Incorrect password!'});
+                    }
+                })
+            }else if(!user){
+                res.json({success: false, message: 'User does not exist, try registering instead!'});
+            }else{
+                res.json({success: false, message: 'an error occured, please try again later!'});
+            }
+        })
+    }
     // res.redirect('/course-list'); //redirect to course-list upon successful login
-})
+});
+
+app.post('/register',(req,res)=>{
+    //login form handling
+    if (!(req.body.password && req.body.username)){
+        res.json({success: false, message: "form values missing!"});
+    }
+    else{
+        const inputUser = req.body.username.toLowerCase();
+        const userpass = req.body.password;
+        if (userpass.length<8){
+            res.json({success: false, message: "password shorter than 8 characters!"});
+        }else{
+            User.findOne({"username": inputUser}, (err,result)=>{
+                if (result){
+                    res.json({success: false, message: "user already exists!"});
+                }else{
+                    bcrypt.genSalt(10,function(err,salt){
+                        bcrypt.hash(userpass,salt,function(err,hash){
+                            new User({
+                                username: inputUser,
+                                password: hash
+                            }).save(function(err,newUser){
+                                if (err){
+                                    res.json({success: false, message: "registration failed, please try again!"});
+                                }else{
+                                    res.json({success: true});
+                                }
+                            })
+                        })
+                    })
+                }
+            })
+        }
+    }
+    // res.redirect('/course-list'); //redirect to course-list upon successful login
+});
 
 app.get('/course-list',(req,res)=>{
     //handle any query parameters here

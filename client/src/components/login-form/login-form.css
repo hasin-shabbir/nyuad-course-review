@@ -1,0 +1,6 @@
+form div {
+	padding-bottom: 0.5em;
+}
+input[type="text"]{
+	width: auto;
+}
