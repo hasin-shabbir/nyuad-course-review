@@ -39,18 +39,18 @@ app.get('/', (req, res) => {
     // res.redirect('/login');
 });
 
-app.get('/register', (req, res) => {
-    //registration page
-});
+// app.get('/register', (req, res) => {
+//     //registration page
+// });
 
 // app.post('/register', (req, res) => {
 //     //registration form handling
 //     // res.redirect('/course-list'); //redirect to course-list upon successful registration by logging in the user
 // });
 
-app.get('/login', (req, res) => {
-    //login page
-});
+// app.get('/login', (req, res) => {
+//     //login page
+// });
 
 app.post('/login',(req,res)=>{
     //login form handling
