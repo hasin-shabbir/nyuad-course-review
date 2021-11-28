@@ -13,17 +13,8 @@ import LoginForm from "./components/login-form/login-form";
 import RegisterForm from "./components/register-form/register-form";
 
 function App() {
-  // const [data,setData] = useState(null);
-  
-  // useEffect(()=>{
-  //   console.log('hello');
-  //   fetch('/api')
-  //     .then((res)=>res.json())
-  //     .then((data)=>setData(data.message));
-  // },[]);
 
   return (
-
     <>
         <Router>
           <Routes>
@@ -42,9 +33,7 @@ function App() {
               element= {<CourseReview />}
             />
           </Routes>
-        </Router>
-        {/* //A list will be generated based on courses stored in db */}
-        
+        </Router>    
     </>  
   );
 }
