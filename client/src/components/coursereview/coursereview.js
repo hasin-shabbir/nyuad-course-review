@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 import { 
     Container, 
@@ -11,9 +12,13 @@ import CourseReviewForm from "../coursereview-form/coursereview-form";
 import CourseReviewItem from "../coursereview-item/coursereview-item";
 
 const CourseReview = (props) =>{
+    const location = useLocation();
+    const courseCodePath = location.pathname.split('/')[2].replace("%20"," ");
+
     const [addNewReviewDisplay, setAddNewReviewDisplay] = useState(false);
     const [reviews, setReviews] = useState({});
     const [numSubmissions, setNumSubmissions] = useState(0);
+    const [courseName, setCourseName] = useState("");
 
     const handleFormToggle = () =>{
         setAddNewReviewDisplay(!addNewReviewDisplay);
@@ -40,10 +45,16 @@ const CourseReview = (props) =>{
     }
 
     const fetchReviews = () => {
-        fetch('/get-reviews')
+        fetch('/get-reviews/:'+courseCodePath)
         .then((res)=>(res.json()))
         .then((data)=>setReviews(data));
     }
+
+    useEffect(()=>{
+        fetch('/get-course-name/:'+courseCodePath)
+        .then((res)=>(res.json()))
+        .then((data)=>setCourseName(data.courseName));
+    }, [])
 
     useEffect(()=>{
         fetchReviews();
@@ -57,8 +68,7 @@ const CourseReview = (props) =>{
             <Container>
                 <Row>
                     <Col1>
-                        {/* TITLE TO BE REPLACED BASED ON URL */}
-                        <CourseTitle>SAMPLE COURSE</CourseTitle>
+                        <CourseTitle>{courseName}</CourseTitle>
                     </Col1>
                 </Row>
                 <Row>
@@ -72,7 +82,7 @@ const CourseReview = (props) =>{
                     addNewReviewDisplay && (
                         <Row>
                             <Col1>
-                                <CourseReviewForm type="new" checkSubmit = {handleFormSubmit}/>
+                                <CourseReviewForm type="new" courseCode = {courseCodePath} checkSubmit = {handleFormSubmit}/>
                             </Col1>
                         </Row>
                     )
@@ -81,7 +91,6 @@ const CourseReview = (props) =>{
             </Container>
             {
                 Object.keys(reviews).slice(0).reverse().map((rev, key)=>{
-                    console.log(rev);
                     return (<CourseReviewItem
                         key={key}
                         username="random user"
@@ -93,6 +102,7 @@ const CourseReview = (props) =>{
                                 workload: reviews[rev].review.workload
                             }
                         }
+                        courseCode = {courseCodePath}
                         text={reviews[rev].review.description}
                         uniqueId={reviews[rev]._id}
                         handleEditOrDelete = {handleReviewEdit}

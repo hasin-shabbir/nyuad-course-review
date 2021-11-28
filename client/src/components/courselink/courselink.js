@@ -9,25 +9,15 @@ import {
 } from "../../containers/rootContainers";
 
 const Courselink = (props) =>{
-    const [user,setUser] = useState(null);
-    useEffect(() => {
-        const loggedInUser = localStorage.getItem("course-rev-user");
-        if (loggedInUser) {
-          const foundUser = loggedInUser;
-          setUser(foundUser);
-        }
-    });
+    
 
     return (
         <>
-        {user ? (
-            <>
-            <h1>Hello {user}!</h1>
             <Container>
                 <Row>
                     <Col1>
                         {/* href to be determined based on exact course */}
-                        <CourseCard href="/sample-course">
+                        <CourseCard href={"/course-review/"+props.courseCode}>
                             <CourseCode>
                                 {props.courseCode+" "}
                             </CourseCode>
@@ -39,11 +29,6 @@ const Courselink = (props) =>{
                     </Col1>
                 </Row>
             </Container>
-            </>
-        ): (
-            <p><a href="/">Login</a> to access this page!</p>
-        )}
-            
         </>
     )
 }

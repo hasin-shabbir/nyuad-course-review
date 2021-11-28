@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import './App.css';
-import Courselink from "./components/courselink/courselink";
+import CourseList from "./components/courselist/courselist";
 import CourseReview from "./components/coursereview/coursereview";
 import LoginForm from "./components/login-form/login-form";
 import RegisterForm from "./components/register-form/register-form";
@@ -46,16 +46,11 @@ function App() {
             <Route path="/courses" 
               element=
                 { 
-                  <Courselink 
-                    courseName = "sample course" 
-                    courseCode = "ABC-UH 1000EQX" 
-                    level={1000} 
-                    program={['ABC','E','Q','X','CDAD']}
-                  />
+                  <CourseList />
                 }
             />
             
-            <Route path="/sample-course"
+            <Route path="/course-review/:courseCodePath"
               element= {<CourseReview />}
             />
 

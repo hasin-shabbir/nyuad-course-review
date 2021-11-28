@@ -97,7 +97,7 @@ const CourseReviewForm = (props) =>{
         }
 
         if (props.type==="new"){
-            axios.post('/add-review',params)
+            axios.post('/add-review/'+props.courseCode,params)
             .then(function (response) {
                 console.log(response.data);
                 props.checkSubmit(true);
@@ -108,7 +108,7 @@ const CourseReviewForm = (props) =>{
             });
         }
         else if (props.type ==="edit"){
-            axios.post('/edit-review',params)
+            axios.post('/edit-review/'+props.courseCode,params)
             .then(function (response) {
                 console.log(response.data);
                 props.checkSubmit(true);

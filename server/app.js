@@ -13,7 +13,6 @@ const app = express();
 
 //for sessions
 const session = require('express-session');
-const { Console } = require('console');
 const sessionOptions = {
     secret: 'secret cookie',
     resave: true,
@@ -66,7 +65,7 @@ app.post('/login',(req,res)=>{
                     if (passwordDidMatch){
                         req.session.regenerate((err)=>{
                             if (!err){
-                                req.session.username = user.username;
+                                 req.session.username = user.username;
                                 res.json({success: true, user: user.username});
                             }else{
                                 res.json({success: true, message: 'an error occured, please try again later!'});
@@ -156,8 +155,28 @@ app.get("/api", (req, res) => {
     res.json({ message: `Hello from server at ${PORT}` });
 });
 
-app.get("/get-reviews",(req,res)=>{
-    CourseReview.find({}, function(err, reviews, count) {
+app.get("/get-courses",(req,res)=>{
+    Course.find({},function(err,courses,count){
+        if (err){
+            res.json({success:false,message: 'could not fetch courses from the server!'})
+        }else{
+            res.json({success: true, courses: courses});
+        }
+    })
+})
+
+app.get("/get-course-name/:courseCode",(req,res)=>{
+    Course.find({code: req.params.courseCode.substring(1)}, function(err, courses, count) {
+        if (err){
+            console.log(err);
+        }else{
+            res.json({courseName : courses[0].name});
+        }
+    });
+})
+
+app.get("/get-reviews/:courseCode",(req,res)=>{
+    CourseReview.find({course: req.params.courseCode.substring(1)}, function(err, reviews, count) {
         if (err){
             console.log(err);
         }else{
@@ -166,7 +185,7 @@ app.get("/get-reviews",(req,res)=>{
     });
 })
 
-app.post("/add-review", (req, res) => {
+app.post("/add-review/:courseCode", (req, res) => {
     const quality = req.body.quality;
     const difficulty = req.body.difficulty;
     const workload = req.body.workload;
@@ -195,7 +214,7 @@ app.post("/add-review", (req, res) => {
     });
 
     new CourseReview({
-        course: sampleCourse,
+        course: req.params.courseCode,
         user: sampleUser,
         review: {
             description: textReview,
@@ -216,7 +235,7 @@ app.post("/add-review", (req, res) => {
 
 });
 
-app.post("/edit-review", (req, res) => {
+app.post("/edit-review/:courseCode", (req, res) => {
     const quality = req.body.quality;
     const difficulty = req.body.difficulty;
     const workload = req.body.workload;

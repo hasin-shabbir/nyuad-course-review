@@ -70,7 +70,7 @@ const CourseReviewItem = (props) =>{
                                 editFormDisplay && (
                                     <Row>
                                         <Col1>
-                                            <CourseReviewForm reviewId={props.uniqueId} type="edit" checkSubmit = {handleFormSubmit}/>
+                                            <CourseReviewForm reviewId={props.uniqueId} courseCode = {props.courseCode} type="edit" checkSubmit = {handleFormSubmit}/>
                                         </Col1>
                                     </Row>
                                 )

@@ -31,7 +31,7 @@ const reviewInfo = new mongoose.Schema({
 // * has a unique identifier
 // * has review information
 const CourseReview = new mongoose.Schema({
-    course:  { type: mongoose.Schema.Types.ObjectId, ref: 'Course', required: true }, // reference to course object using course code
+    course:  { type: String, required: true }, // reference to course object using course code
     user:  { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // reference to user object using username
     review: {type: reviewInfo, required: true}, //information specific to the review including description and metrics
     timestamp: {type: Date, required: true}, //time at which review was posted
@@ -58,7 +58,7 @@ const Course = new mongoose.Schema({
     level: {type: Number, required: true}, // numerical level of the course
     program: {type: [String], required: true}, // a string list of different programs or categories the course falls under
     // course_reviews: [{type: mongoose.Schema.Types.ObjectId, ref:'CourseReview'}], // list of references to the course reviews for the course
-    average_ratings: {type: averageRating, required: true}, // object of average numerical rating metrics
+    // average_ratings: {type: averageRating, required: true}, // object of average numerical rating metrics
 }, {
     _id: true
 });
