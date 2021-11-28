@@ -191,20 +191,6 @@ app.post("/add-review/:courseCode", (req, res) => {
     const workload = req.body.workload;
     const grading = req.body.grading;
     const textReview = req.body.textReview;
-    
-    
-    const sampleCourse = new Course({
-        name: 'Sample',
-        code: 'ABC-UH 1000XEQ',
-        level: 1000,
-        program: ['X','E','Q','CDAD'],
-        averageRatings: {
-            quality: 100,
-            difficulty: 100,
-            grading: 100,
-            workload: 100
-        }
-    });
 
     const sampleUser = new User({
         username: 'John Doe',

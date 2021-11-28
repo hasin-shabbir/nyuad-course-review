@@ -27,33 +27,20 @@ function App() {
     <>
         <Router>
           <Routes>
-          <Route path="/" element = {<Navigate to="/login" />}
-          />
-          <Route path="/login" 
-            element=
-              {
-                <LoginForm/>
-              }
-          />
-          <Route path="/register" 
-            element=
-              {
-                <RegisterForm/>
-              }
-          />
-          
-
-            <Route path="/courses" 
-              element=
-                { 
-                  <CourseList />
-                }
+            <Route path="/" element = {<Navigate to="/login" />}
             />
-            
+            <Route path="/login" 
+              element={<LoginForm/>}
+            />
+            <Route path="/register" 
+              element= {<RegisterForm/>}
+            />
+            <Route path="/courses" 
+              element={<CourseList />}
+            />
             <Route path="/course-review/:courseCodePath"
               element= {<CourseReview />}
             />
-
           </Routes>
         </Router>
         {/* //A list will be generated based on courses stored in db */}
