@@ -1,9 +1,8 @@
 import { set } from "mongoose";
 import React, { useState } from "react";
-import styled from "styled-components";
 import axios from "axios";
 
-import "./coursereview-form.css";
+import css from "./coursereview-form.module.css";
 
 function isNumeric(str) {
     if (typeof str != "string") return false // we only process strings!  
@@ -135,7 +134,7 @@ const CourseReviewForm = (props) =>{
     return (
     <>
         
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={css.form}>
             
             {props.type!=="delete" && (
                 <>
@@ -146,6 +145,7 @@ const CourseReviewForm = (props) =>{
                             type="text"
                             value={quality}
                             onChange={handleRating}
+                            className={css.textInput}
                         />
                     </label>
 
@@ -156,6 +156,7 @@ const CourseReviewForm = (props) =>{
                             type="text"
                             value={difficulty}
                             onChange={handleRating}
+                            className={css.textInput}
                         />
                     </label>
 
@@ -166,6 +167,7 @@ const CourseReviewForm = (props) =>{
                             type="text"
                             value={grading}
                             onChange={handleRating}
+                            className={css.textInput}
                         />
                     </label>
 
@@ -176,21 +178,23 @@ const CourseReviewForm = (props) =>{
                             type="text"
                             value={workload}
                             onChange={handleRating}
+                            className={css.textInput}
                         />
                     </label>
 
-                    <label>
+                    <label style={{display:"block"}}>
                         Review Text: 
                         <textarea
                             placeholder="enter review text here"
                             onChange = {handleTextChange}    
                             value = {textReview}
+                            className={css.textareaInput}
                         />
                     </label>
                 </>
             )}
                 
-            <input type="submit" value={props.type === "new" ? "submit review" : props.type} />
+            <input type="submit" className={css.subBtn} value={props.type === "new" ? "Submit review" : props.type} />
         </form>
           
     </>

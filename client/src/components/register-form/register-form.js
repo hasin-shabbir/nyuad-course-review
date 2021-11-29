@@ -1,10 +1,9 @@
 import { set } from "mongoose";
 import React, { useState } from "react";
 import {Navigate} from "react-router-dom";
-import styled from "styled-components";
 import axios from "axios";
 
-import "./register-form.css";
+import css from "./register-form.module.css";
 
 
 const RegisterForm = (props) => {
@@ -67,12 +66,12 @@ const RegisterForm = (props) => {
             :
             (<div>
             <h1>Register</h1>
-                <form method="POST">
-                    <div>Username: <input type="text" name="username" value={userName} onChange={handleUsername}/></div>
-                    <div>Email: <input type="text" name="email" value={email} onChange={handleEmail}/></div>
-                    <div>Password: <input type="password" name="password" value={password} onChange={handlePassword}/></div>
-                    <div>Re-enter password: <input type="password" name="password2" value={password2} onChange={handlePassword2}/></div>
-                    <div><input type="submit" value="Register" onClick={handleSubmit}/></div>
+                <form className={css.form} method="POST">
+                    <div className={css.inputBlock}>Username: <input className={css.textInput} type="text" name="username" value={userName} onChange={handleUsername}/></div>
+                    <div className={css.inputBlock}>Email: <input className={css.textInput} type="text" name="email" value={email} onChange={handleEmail}/></div>
+                    <div className={css.inputBlock}>Password: <input className={css.passwordInput} type="password" name="password" value={password} onChange={handlePassword}/></div>
+                    <div className={css.inputBlock}>Re-enter password: <input className={css.passwordInput} type="password" name="password2" value={password2} onChange={handlePassword2}/></div>
+                    <div className={css.inputBlock}><input className={css.subBtn} type="submit" value="Register" onClick={handleSubmit}/></div>
                 </form>
             </div>
             )

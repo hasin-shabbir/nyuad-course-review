@@ -1,10 +1,9 @@
 import { set } from "mongoose";
 import React, { useState } from "react";
 import {Navigate} from "react-router-dom";
-import styled from "styled-components";
 import axios from "axios";
 
-import "./login-form.css";
+import css from "./login-form.module.css";
 
 
 const LoginForm = (props) => {
@@ -54,10 +53,10 @@ const LoginForm = (props) => {
             :
             (<div>
             <h1>Login</h1>
-                <form method="POST">
-                    <div>Email: <input type="text" name="email" value={email} onChange={handleEmail}/></div>
-                    <div>Password: <input type="password" name="password" value={password} onChange={handlePassword}/></div>
-                    <div><input type="submit" value="login" onClick={handleSubmit}/></div>
+                <form className={css.form} method="POST">
+                    <div className={css.inputBlock}>Email: <input className={css.textInput} type="text" name="email" value={email} onChange={handleEmail}/></div>
+                    <div className={css.inputBlock}>Password: <input className={css.passwordInput} type="password" name="password" value={password} onChange={handlePassword}/></div>
+                    <div className={css.inputBlock}><input className={css.subBtn} type="submit" value="login" onClick={handleSubmit}/></div>
                 </form>
             </div>
             )
