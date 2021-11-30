@@ -1,17 +1,11 @@
 import React,{useState,useEffect} from "react";
 import Courselink from "../courselink/courselink"
-import Dropdown from "../dropdown/dropdown";
-import styled from "styled-components";
-
-import {
-    Container,
-    Row,
-    Col2
-} from "../../containers/rootContainers";
+import SearchCourse from "../searchCourse/SearchCourse";
 
 const CourseList = (props) => {
     const [success,setSuccess] = useState(true);
     const [courses,setCourses] = useState(null);
+    const [allCourses, setAllCourses] = useState(null);
     const [user,setUser] = useState(null);
     
     let token;
@@ -35,8 +29,71 @@ const CourseList = (props) => {
         .then((data)=>{
             setSuccess(data.success);
             setCourses(data.courses);
+            setAllCourses(data.courses);
         });
-    },[])
+    },[]);
+
+    const filterCourses = (searchParams,levelParams,keywordParams) => {
+        setCourses(allCourses);
+        const searchVals = [...searchParams];
+        const levelVals = [...levelParams];
+        const keywordVals = [...keywordParams];
+
+        const newCourses = [];
+        allCourses.forEach(initialCourse=>{
+            const courseCopy = {};
+            let levelCheck = false;
+            courseCopy.name = initialCourse.name;
+            courseCopy.code = initialCourse.code;
+            courseCopy.level = initialCourse.level;
+            courseCopy.program = [...initialCourse.program]
+
+            let metInitCriteria = false;
+            
+            if (//level and prog
+                levelVals.length>0 &&
+                searchVals.length>0 && 
+                levelVals.includes(courseCopy.level.toString()) && 
+                searchVals.filter(val=>courseCopy.program.includes(val)).length>0
+            ){
+                metInitCriteria = true;
+            }
+            else if ( //level only
+                levelVals.length>0 &&
+                searchVals.length===0 && 
+                levelVals.includes(courseCopy.level.toString())
+            ){
+                metInitCriteria = true;
+            }
+            else if ( //prog only
+                levelVals.length===0 &&
+                searchVals.length>0 && 
+                searchVals.filter(val=>courseCopy.program.includes(val)).length>0
+            ){
+                metInitCriteria = true;
+            }else if ( //search only
+                levelVals.length===0 && 
+                searchVals.length===0
+            ){
+                metInitCriteria = true;
+            }
+
+            if (
+                keywordVals.length>0 &&
+                metInitCriteria &&
+                keywordVals.some(val => courseCopy.name.toLowerCase().includes(val.toLowerCase()))
+            ){
+                newCourses.push(courseCopy);
+            }
+            else if(
+                keywordVals.length===0 &&
+                metInitCriteria
+            ){
+                newCourses.push(courseCopy);
+            }
+        });
+        setCourses(newCourses);
+    };
 
     return (
         <>
@@ -44,26 +101,8 @@ const CourseList = (props) => {
             <>
                 <h1>Hello {user}!</h1>
                 {!success && <div>Could not fetch courses, try again later!</div>}
-                <SearchContainer>
-                    <Row>
-                        <DropdownColumn>
-                            <Dropdown 
-                                label="Program"
-                                singleSelect={false}
-                                groupBy="cat"
-                                options = {[{label: 'Option 1️⃣', value: 1, cat:'core curriculum'},{label: 'Option 2️⃣', value: 2, cat:'language'}]}
-                            />
-                        </DropdownColumn>
-                        <DropdownColumn>
-                            <Dropdown 
-                                label={"Level"}
-                                singleSelect={true}
-                                groupBy=''
-                                options = {[{label: 'Option 1️⃣', value: 1},{label: 'Option 2️⃣', value: 2}]}
-                            />
-                        </DropdownColumn>
-                    </Row>
-                </SearchContainer>                
+                            
+                <SearchCourse onSubmit={filterCourses}/>
 
                 {courses ? (courses.map((course,key)=>{
                     return (<Courselink 
@@ -85,12 +124,5 @@ const CourseList = (props) => {
         
     )
 }
-
-const SearchContainer = styled(Container)``;
-
-const DropdownColumn = styled(Col2)`
-    display: flex;
-    justify-content: center;
-`;
 
 export default CourseList;

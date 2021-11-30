@@ -18,10 +18,6 @@ const Courselink = (props) =>{
                     <Col1>
                         {/* href to be determined based on exact course */}
                         <CourseCard href={"/course-review/"+props.courseCode}>
-                            <CourseCode>
-                                {props.courseCode+" "}
-                            </CourseCode>
-                            
                             <CourseTitle>
                                 {props.courseName}
                             </CourseTitle>
@@ -40,9 +36,6 @@ const CourseTitle = styled.span`
     font-weight: lighter;
     line-height: 1.625rem;
     text-transform: capitalize;    
-`;
-
-const CourseCode = styled(CourseTitle)`   
 `;
 
 const CourseCard = styled.a`

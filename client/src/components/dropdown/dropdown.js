@@ -4,14 +4,18 @@ import css from "./dropdown.module.css";
 import styled from "styled-components";
 
 const Dropdown = (props) => {
-    const [options,setOptions] = useState(props.options);
     const [selectedValues, setSelectedValues] = useState([]);
     
     useEffect(() => {
-        if (selectedValues.length > 1 && props.singleSelect===true) {
-          setSelectedValues([selectedValues[selectedValues.length - 1]])
+        if (selectedValues.length < 2 && props.singleSelect===true) {
+            props.handleLevelChange(selectedValues);
+        }else if (selectedValues.length > 1 && props.singleSelect===true){
+            setSelectedValues([selectedValues[selectedValues.length - 1]]);
         }
-    }, [selectedValues])
+        else if (props.label === "Program"){
+            props.handleProgChange(selectedValues);
+        }
+    }, [selectedValues]);
 
     return (
         <>  
