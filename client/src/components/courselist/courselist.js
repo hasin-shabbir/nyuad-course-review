@@ -1,12 +1,13 @@
 import React,{useState,useEffect} from "react";
 import Courselink from "../courselink/courselink"
 import SearchCourse from "../searchCourse/SearchCourse";
+import Headerbar from "../headerbar/headerbar";
 
 const CourseList = (props) => {
     const [success,setSuccess] = useState(true);
     const [courses,setCourses] = useState(null);
     const [allCourses, setAllCourses] = useState(null);
-    const [user,setUser] = useState(null);
+    const [user,setUser] = useState(null);  
     
     let token;
     
@@ -99,10 +100,10 @@ const CourseList = (props) => {
         <>
         {user ? (
             <>
-                <h1>Hello {user}!</h1>
-                {!success && <div>Could not fetch courses, try again later!</div>}
-                            
+                <Headerbar />
                 <SearchCourse onSubmit={filterCourses}/>
+
+                {!success && <div>Could not fetch courses, try again later!</div>}
 
                 {courses ? (courses.map((course,key)=>{
                     return (<Courselink 

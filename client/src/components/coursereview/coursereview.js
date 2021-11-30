@@ -10,6 +10,7 @@ import {
 } from "../../containers/rootContainers";
 import CourseReviewForm from "../coursereview-form/coursereview-form";
 import CourseReviewItem from "../coursereview-item/coursereview-item";
+import Headerbar from "../headerbar/headerbar";
 
 const CourseReview = (props) =>{
     const location = useLocation();
@@ -86,7 +87,7 @@ const CourseReview = (props) =>{
         )}
         {token ? (
             <>
-            <h1>Currently logged in as: {user}!</h1>
+            <Headerbar />
             <Container>
                 <Row>
                     <Col1>
