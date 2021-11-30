@@ -125,12 +125,13 @@ An Example Course Review:
 * (2 points) loadable-components (Javascript library)
     * To be used to import components into React dynamically and divide the entire web application into bundles/chunks
     * This will allow for serving only what is needed and not the entire content at once, helping in better web application performance/speed
-* (2 points) Material-UI (Front-end library)
-    * For provision of a customizable library of lightweight React components and icons that are ready to use and customize, and are robust.
-    * Will assist in avoiding reinventing the wheel for very common components yet still allow for customization as needed.
-* (2 points) Perform client-side form validation using Parsley.js
-    * Parsley.js is a powerful library that allows for complex and dynamic form validation through extensive means.
-    * Ability to override default parsley.js behaviour allows for customization of validation methods as needed
+* (2 points) Modular css and Styled Components, other ready to use component libraries
+    * Styled components or customization of styling html elements without having to create functional or class-based react components.
+    * Modular css will assist in localizing styling for components
+    * Component libraries (such as react-multi-select-component) will assist in avoiding reinventing the wheel for very common components yet still allow for customization as needed.
+* (2 points) Perform client-side form validation using react-hook-form library
+    * react-hook-form is a powerful and lightweight library that allows for complex and dynamic form validation through extensive means.
+    * Ability to override default library behaviour allows for customization of validation methods as needed
     * Useful for the project since it is based on multiple forms for which validation is a necessity
 
 15 points total out of 8 required points 
