@@ -1,5 +1,13 @@
 import React,{useState,useEffect} from "react";
 import Courselink from "../courselink/courselink"
+import Dropdown from "../dropdown/dropdown";
+import styled from "styled-components";
+
+import {
+    Container,
+    Row,
+    Col2
+} from "../../containers/rootContainers";
 
 const CourseList = (props) => {
     const [success,setSuccess] = useState(true);
@@ -36,6 +44,27 @@ const CourseList = (props) => {
             <>
                 <h1>Hello {user}!</h1>
                 {!success && <div>Could not fetch courses, try again later!</div>}
+                <SearchContainer>
+                    <Row>
+                        <DropdownColumn>
+                            <Dropdown 
+                                label="Program"
+                                singleSelect={false}
+                                groupBy="cat"
+                                options = {[{label: 'Option 1️⃣', value: 1, cat:'core curriculum'},{label: 'Option 2️⃣', value: 2, cat:'language'}]}
+                            />
+                        </DropdownColumn>
+                        <DropdownColumn>
+                            <Dropdown 
+                                label={"Level"}
+                                singleSelect={true}
+                                groupBy=''
+                                options = {[{label: 'Option 1️⃣', value: 1},{label: 'Option 2️⃣', value: 2}]}
+                            />
+                        </DropdownColumn>
+                    </Row>
+                </SearchContainer>                
+
                 {courses ? (courses.map((course,key)=>{
                     return (<Courselink 
                     courseName = {course.name} 
@@ -56,5 +85,12 @@ const CourseList = (props) => {
         
     )
 }
+
+const SearchContainer = styled(Container)``;
+
+const DropdownColumn = styled(Col2)`
+    display: flex;
+    justify-content: center;
+`;
 
 export default CourseList;
