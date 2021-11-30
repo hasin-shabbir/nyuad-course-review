@@ -25,11 +25,17 @@ const CourseReview = (props) =>{
     }
 
     const [user,setUser] = useState(null);
+    const [token, setToken] = useState(null);
+    let reqToken;
     useEffect(() => {
         const loggedInUser = localStorage.getItem("course-rev-user");
-        if (loggedInUser) {
+        const token = localStorage.getItem("course-rev-token");
+        reqToken = localStorage.getItem("course-rev-token");
+
+        if (token) {
           const foundUser = loggedInUser;
           setUser(foundUser);
+          setToken(token);
         }
     });
 
@@ -45,16 +51,20 @@ const CourseReview = (props) =>{
     }
 
     const fetchReviews = () => {
-        fetch('/get-reviews/:'+courseCodePath)
+        fetch('/get-reviews/:'+courseCodePath,{
+            headers: {
+                "x-access-token": reqToken
+            }
+        })
         .then((res)=>(res.json()))
         .then((data)=>setReviews(data));
     }
 
     useEffect(()=>{
-        fetch('/get-course-name/:'+courseCodePath)
+        token && fetch('/get-course-name/:'+courseCodePath)
         .then((res)=>(res.json()))
         .then((data)=>setCourseName(data.courseName));
-    }, [])
+    }, [token])
 
     useEffect(()=>{
         fetchReviews();
@@ -62,7 +72,7 @@ const CourseReview = (props) =>{
 
     return (
         <>
-        {user ? (
+        {token ? (
             <>
             <h1>Currently logged in as: {user}!</h1>
             <Container>
@@ -106,6 +116,7 @@ const CourseReview = (props) =>{
                         text={reviews[rev].review.description}
                         uniqueId={reviews[rev]._id}
                         handleEditOrDelete = {handleReviewEdit}
+                        currentUser = {reviews[rev].currentUser ? reviews[rev].currentUser : false}
                     />)
                     })
             }

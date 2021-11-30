@@ -27,7 +27,8 @@ const LoginForm = (props) => {
             axios.post("/login",params).then(
                 function(response){
                     if (response.data.success){
-                        localStorage.setItem("course-rev-user", response.data.user);
+                        localStorage.setItem("course-rev-user", response.data.user.username);
+                        localStorage.setItem("course-rev-token", response.data.user.token);
                         setRedirect("/courses");
                     }else{
                         alert(response.data.message);

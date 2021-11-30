@@ -59,13 +59,16 @@ const CourseReviewItem = (props) =>{
                                 </Col1>
                             </ReviewRow>
 
-                            <ReviewRow>
-                                <Col1>
-                                    <FormShower onClick={handleFormToggle}>
-                                        {editFormDisplay ? "close form" : "edit review"}
-                                    </FormShower>        
-                                </Col1>
-                            </ReviewRow>
+                            {props.currentUser && (
+                                <ReviewRow>
+                                    <Col1>
+                                        <FormShower onClick={handleFormToggle}>
+                                            {editFormDisplay ? "close form" : "edit review"}
+                                        </FormShower>        
+                                    </Col1>
+                                </ReviewRow>
+                                )
+                            }
                             {
                                 editFormDisplay && (
                                     <Row>
@@ -75,11 +78,14 @@ const CourseReviewItem = (props) =>{
                                     </Row>
                                 )
                             }
-                            <Row>
-                                <Col1>
-                                    <CourseReviewForm reviewId={props.uniqueId} type="delete" checkSubmit = {handleFormSubmit}/>
-                                </Col1>
-                            </Row>
+                            {props.currentUser && (
+                                <Row>
+                                    <Col1>
+                                        <CourseReviewForm reviewId={props.uniqueId} type="delete" checkSubmit = {handleFormSubmit}/>
+                                    </Col1>
+                                </Row>
+                            )}
+                            
                         </Col1>
                     </ReviewCard>
                 </Col1>

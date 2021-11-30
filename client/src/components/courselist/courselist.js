@@ -6,8 +6,12 @@ const CourseList = (props) => {
     const [courses,setCourses] = useState(null);
     const [user,setUser] = useState(null);
     
+    let token;
+    
     useEffect(() => {
         const loggedInUser = localStorage.getItem("course-rev-user");
+        token = localStorage.getItem("course-rev-token");
+        console.log(loggedInUser);
         if (loggedInUser) {
           const foundUser = loggedInUser;
           setUser(foundUser);
@@ -15,7 +19,11 @@ const CourseList = (props) => {
     },[]);
 
     useEffect(()=>{
-        fetch('/get-courses')
+        fetch('/get-courses',{
+            headers: {
+                "x-access-token": token
+            }
+        })
         .then((res)=>(res.json()))
         .then((data)=>{
             console.log(data); 

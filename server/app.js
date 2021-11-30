@@ -1,6 +1,8 @@
 require('dotenv').config();
 require('./db');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const auth = require("./middleware/auth");
 const mongoose = require('mongoose');
 
 const express = require('express');
@@ -65,11 +67,23 @@ app.post('/login',(req,res)=>{
                     if (passwordDidMatch){
                         req.session.regenerate((err)=>{
                             if (!err){
-                                req.session.username = user.username;
+                                const token = jwt.sign(
+                                    { user_id: user._id, inputEmail },
+                                    process.env.TOKEN_KEY,
+                                    {
+                                    expiresIn: "2h",
+                                    }
+                                );
+                                const reqUser = {
+                                    username: user.username,
+                                    email: user.email,
+                                    token: token
+                                }
+                                req.session.user = reqUser;
 
-                                res.json({success: true, user: user.username});
+                                res.json({success: true, user: reqUser});
                             }else{
-                                res.json({success: true, message: 'an error occured, please try again later!'});
+                                res.json({success: false, message: 'an error occured, please try again later!'});
                             }
                         })
                     }else{
@@ -176,12 +190,21 @@ app.get("/get-course-name/:courseCode",(req,res)=>{
     });
 })
 
-app.get("/get-reviews/:courseCode",(req,res)=>{
+app.get("/get-reviews/:courseCode",auth,(req,res)=>{
+    const loggedInUser = req.user.inputEmail;
     CourseReview.find({course: req.params.courseCode.substring(1)}, function(err, reviews, count) {
         if (err){
             console.log(err);
         }else{
-            res.json(reviews);
+            console.log(reviews);
+            const revs = reviews;
+            revs.forEach((rev,i)=>{
+                if (rev.user.email === loggedInUser){
+                    rev.currentUser = true;
+                    revs[i] = rev;
+                }
+            })
+            res.json(revs);
         }
     });
 })
