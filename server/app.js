@@ -65,7 +65,8 @@ app.post('/login',(req,res)=>{
                     if (passwordDidMatch){
                         req.session.regenerate((err)=>{
                             if (!err){
-                                 req.session.username = user.username;
+                                req.session.username = user.username;
+
                                 res.json({success: true, user: user.username});
                             }else{
                                 res.json({success: true, message: 'an error occured, please try again later!'});
