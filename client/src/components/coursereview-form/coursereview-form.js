@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useForm } from 'react-hook-form';
 import axios from "axios";
 
 import css from "./coursereview-form.module.css";
@@ -11,6 +12,12 @@ function isNumeric(str) {
 
 const CourseReviewForm = (props) =>{
 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
     const [quality,setQuality] = useState('');
     const [difficulty,setDifficulty] = useState('');
     const [grading,setGrading] = useState('');
@@ -18,7 +25,7 @@ const CourseReviewForm = (props) =>{
     const [textReview, setTextReview] = useState('');
   
     const handleRating = (e) => {
-        e.preventDefault();
+        console.log('hello');
         let val;
         //check for validity of input type
         if (isNumeric(e.target.value)){
@@ -53,8 +60,7 @@ const CourseReviewForm = (props) =>{
         setTextReview(e.target.value);
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleFormSubmit = (e) => {
         let params = {};
         if (props.type ==="delete"){
             params = {
@@ -145,7 +151,7 @@ const CourseReviewForm = (props) =>{
     return (
     <>
         
-        <form onSubmit={handleSubmit} className={css.form}>
+        <form onSubmit={handleSubmit(handleFormSubmit)} className={css.form}>
             
             {props.type!=="delete" && (
                 <>
@@ -154,10 +160,17 @@ const CourseReviewForm = (props) =>{
                         <input
                             name='quality'
                             type="text"
+                            placeholder="Between 0 and 100 inclusive"
+                            className={css.textInput}
+                            {...register('quality', {
+                                required: true,
+                                pattern : /^[0-9]+$/
+                            })
+                            }
                             value={quality}
                             onChange={handleRating}
-                            className={css.textInput}
                         />
+                        {errors.quality && <p className={css.error}>Invalid or missing quality rating.</p>}
                     </label>
 
                     <label>
@@ -165,10 +178,17 @@ const CourseReviewForm = (props) =>{
                         <input
                             name='difficulty'
                             type="text"
+                            placeholder="Between 0 and 100 inclusive"
+                            className={css.textInput}
+                            {...register('difficulty', {
+                                required: true,
+                                pattern : /^[0-9]+$/
+                            })
+                            }
                             value={difficulty}
                             onChange={handleRating}
-                            className={css.textInput}
                         />
+                        {errors.difficulty && <p className={css.error}>Invalid or missing difficulty rating.</p>}
                     </label>
 
                     <label>
@@ -176,10 +196,16 @@ const CourseReviewForm = (props) =>{
                         <input
                             name='grading'
                             type="text"
+                            placeholder="Between 0 and 100 inclusive"
+                            className={css.textInput}
+                            {...register('grading', {
+                                required: true
+                            })
+                            }
                             value={grading}
                             onChange={handleRating}
-                            className={css.textInput}
                         />
+                        {errors.grading && <p className={css.error}>Invalid or missing grading rating.</p>}
                     </label>
 
                     <label>
@@ -187,20 +213,32 @@ const CourseReviewForm = (props) =>{
                         <input
                             name='workload'
                             type="text"
+                            placeholder="Between 0 and 100 inclusive"
+                            className={css.textInput}
+                            {...register('workload', {
+                                required: true,
+                                pattern : /^[0-9]+$/
+                            })
+                            }
                             value={workload}
                             onChange={handleRating}
-                            className={css.textInput}
                         />
+                        {errors.workload && <p className={css.error}>Invalid or missing workload rating.</p>}
                     </label>
 
                     <label style={{display:"block"}}>
                         Review Text: 
                         <textarea
                             placeholder="enter review text here"
+                            className={css.textareaInput}
+                            {...register('reviewtext', {
+                                required: true
+                            })
+                            }
                             onChange = {handleTextChange}    
                             value = {textReview}
-                            className={css.textareaInput}
                         />
+                        {errors.reviewtext && <p className={css.error}>Missing review text.</p>}
                     </label>
                 </>
             )}
