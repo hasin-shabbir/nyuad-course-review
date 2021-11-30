@@ -59,9 +59,7 @@ const CourseReview = (props) =>{
         })
         .then((res)=>(res.json()))
         .then((data)=>{
-            // console.log(data);
             if (data.success===false && data.tokenValid === false){
-                console.log('helloooo');
                 setTokenValid(false);
             }else{
                 setReviews(data);
@@ -82,7 +80,6 @@ const CourseReview = (props) =>{
     return (
         <>
         {!tokenValid ? (
-            // console.log(tokenValid)
             <Navigate to="/login" />
         ): (
             <></>
