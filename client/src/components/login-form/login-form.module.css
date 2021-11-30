@@ -21,6 +21,10 @@
     cursor: pointer;
 }
 
+.error{
+    color: red;
+}
+
 .form{
     margin: 10  px 0 20px;
 }
