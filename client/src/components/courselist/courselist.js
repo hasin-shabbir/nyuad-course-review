@@ -13,7 +13,7 @@ const CourseList = (props) => {
     useEffect(() => {
         const loggedInUser = localStorage.getItem("course-rev-user");
         token = localStorage.getItem("course-rev-token");
-        if (loggedInUser) {
+        if (token) {
           const foundUser = loggedInUser;
           setUser(foundUser);
         }

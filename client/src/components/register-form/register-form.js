@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {Navigate} from "react-router-dom";
 import axios from "axios";
 
@@ -12,6 +12,13 @@ const RegisterForm = (props) => {
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
     const [redirect, setRedirect] = useState(null);
+
+    useEffect(()=>{
+        const token = localStorage.getItem("course-rev-token");
+        if (token) {
+          setRedirect("/courses");
+        }
+    },[]);
 
     const handleSubmit = (e)=>{
         e.preventDefault();
