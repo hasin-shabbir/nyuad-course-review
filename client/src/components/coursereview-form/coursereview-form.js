@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import css from "./coursereview-form.module.css";
@@ -11,7 +10,6 @@ function isNumeric(str) {
 }
 
 const CourseReviewForm = (props) =>{
-    const navigate = useNavigate();
 
     const [quality,setQuality] = useState('');
     const [difficulty,setDifficulty] = useState('');
