@@ -68,7 +68,7 @@ app.post('/login',(req,res)=>{
                         req.session.regenerate((err)=>{
                             if (!err){
                                 const token = jwt.sign(
-                                    { user_id: user._id, inputEmail },
+                                    { user_id: user._id, email: user.email, name: user.username },
                                     process.env.TOKEN_KEY,
                                     {
                                     expiresIn: "2h",
@@ -170,7 +170,7 @@ app.get("/api", (req, res) => {
     res.json({ message: `Hello from server at ${PORT}` });
 });
 
-app.get("/get-courses",(req,res)=>{
+app.get("/get-courses",auth,(req,res)=>{
     Course.find({},function(err,courses,count){
         if (err){
             res.json({success:false,message: 'could not fetch courses from the server!'})
@@ -191,41 +191,35 @@ app.get("/get-course-name/:courseCode",(req,res)=>{
 })
 
 app.get("/get-reviews/:courseCode",auth,(req,res)=>{
-    const loggedInUser = req.user.inputEmail;
+    const userEmail = req.user.email;
+    
     CourseReview.find({course: req.params.courseCode.substring(1)}, function(err, reviews, count) {
         if (err){
             console.log(err);
         }else{
-            console.log(reviews);
-            const revs = reviews;
-            revs.forEach((rev,i)=>{
-                if (rev.user.email === loggedInUser){
-                    rev.currentUser = true;
-                    revs[i] = rev;
+            const revs = reviews.map((rev,i)=> {
+                if (rev.user_email===userEmail){
+                    return {...rev._doc,currentUser: true};
+                }else{
+                    return {...rev._doc,currentUser: false};
                 }
-            })
+            });
             res.json(revs);
         }
     });
 })
 
-app.post("/add-review/:courseCode", (req, res) => {
+app.post("/add-review/:courseCode", auth, (req, res) => {
     const quality = req.body.quality;
     const difficulty = req.body.difficulty;
     const workload = req.body.workload;
     const grading = req.body.grading;
     const textReview = req.body.textReview;
 
-    const sampleUser = new User({
-        username: 'John Doe',
-        password: 'Random Hash',
-        email: 'johndoe@nyu.edu',
-        reviews: []
-    });
-
     new CourseReview({
         course: req.params.courseCode,
-        user: sampleUser,
+        user: req.user.name,
+        user_email: req.user.email,
         review: {
             description: textReview,
             quality: quality,
@@ -245,7 +239,7 @@ app.post("/add-review/:courseCode", (req, res) => {
 
 });
 
-app.post("/edit-review/:courseCode", (req, res) => {
+app.post("/edit-review/:courseCode", auth, (req, res) => {
     const quality = req.body.quality;
     const difficulty = req.body.difficulty;
     const workload = req.body.workload;
@@ -275,7 +269,7 @@ app.post("/edit-review/:courseCode", (req, res) => {
 
 });
 
-app.post("/delete-review", (req, res) => {
+app.post("/delete-review", auth, (req, res) => {
     const uid = req.body.rev_id;
 
     const searchQuery = {

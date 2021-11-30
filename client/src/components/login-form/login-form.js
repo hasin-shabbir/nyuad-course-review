@@ -28,6 +28,7 @@ const LoginForm = (props) => {
                 function(response){
                     if (response.data.success){
                         localStorage.setItem("course-rev-user", response.data.user.username);
+                        localStorage.setItem("course-rev-email", response.data.user.email);
                         localStorage.setItem("course-rev-token", response.data.user.token);
                         setRedirect("/courses");
                     }else{

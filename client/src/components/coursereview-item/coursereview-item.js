@@ -111,7 +111,6 @@ const ReviewRow = styled.div`
 
 const UserName = styled.p`
     color: black;
-    text-transform: capitalize;
     font-weight: bold;
     text-align: left;
     border-bottom: 1px solid grey;

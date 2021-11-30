@@ -103,7 +103,7 @@ const CourseReview = (props) =>{
                 Object.keys(reviews).slice(0).reverse().map((rev, key)=>{
                     return (<CourseReviewItem
                         key={key}
-                        username="random user"
+                        username={`${reviews[rev].user} (${reviews[rev].user_email})`}
                         metrics={
                             {
                                 quality: reviews[rev].review.quality,

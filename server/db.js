@@ -32,7 +32,8 @@ const reviewInfo = new mongoose.Schema({
 // * has review information
 const CourseReview = new mongoose.Schema({
     course:  { type: String, required: true }, // reference to course object using course code
-    user:  { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // reference to user object using username
+    user:  { type: String, required: true }, // reference to user using username
+    user_email: {type: String, required: true}, //reference to user using user email
     review: {type: reviewInfo, required: true}, //information specific to the review including description and metrics
     timestamp: {type: Date, required: true}, //time at which review was posted
 }, {
