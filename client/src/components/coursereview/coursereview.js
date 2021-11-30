@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 
 import { 
     Container, 
@@ -19,6 +19,7 @@ const CourseReview = (props) =>{
     const [reviews, setReviews] = useState({});
     const [numSubmissions, setNumSubmissions] = useState(0);
     const [courseName, setCourseName] = useState("");
+    const [tokenValid, setTokenValid] = useState(true);
 
     const handleFormToggle = () =>{
         setAddNewReviewDisplay(!addNewReviewDisplay);
@@ -57,7 +58,15 @@ const CourseReview = (props) =>{
             }
         })
         .then((res)=>(res.json()))
-        .then((data)=>setReviews(data));
+        .then((data)=>{
+            // console.log(data);
+            if (data.success===false && data.tokenValid === false){
+                console.log('helloooo');
+                setTokenValid(false);
+            }else{
+                setReviews(data);
+            }
+        });
     }
 
     useEffect(()=>{
@@ -72,6 +81,12 @@ const CourseReview = (props) =>{
 
     return (
         <>
+        {!tokenValid ? (
+            // console.log(tokenValid)
+            <Navigate to="/login" />
+        ): (
+            <></>
+        )}
         {token ? (
             <>
             <h1>Currently logged in as: {user}!</h1>

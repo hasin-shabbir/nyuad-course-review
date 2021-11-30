@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import css from "./coursereview-form.module.css";
@@ -10,6 +11,8 @@ function isNumeric(str) {
 }
 
 const CourseReviewForm = (props) =>{
+    const navigate = useNavigate();
+
     const [quality,setQuality] = useState('');
     const [difficulty,setDifficulty] = useState('');
     const [grading,setGrading] = useState('');
@@ -110,13 +113,13 @@ const CourseReviewForm = (props) =>{
                 props.checkSubmit(false);
             });
         }
-        else if (props.type ==="edit"){
+        else if (props.type === "edit"){
             const config = {
                 headers: {
                     "x-access-token": reqToken
                 }
             };
-            axios.post('/edit-review/'+props.courseCode,params, config)
+            axios.post('/edit-review/', params, config)
             .then(function (response) {
                 props.checkSubmit(true);
             })

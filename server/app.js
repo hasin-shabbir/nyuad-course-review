@@ -239,7 +239,7 @@ app.post("/add-review/:courseCode", auth, (req, res) => {
 
 });
 
-app.post("/edit-review/:courseCode", auth, (req, res) => {
+app.post("/edit-review/", auth, (req, res) => {
     const quality = req.body.quality;
     const difficulty = req.body.difficulty;
     const workload = req.body.workload;
@@ -258,23 +258,28 @@ app.post("/edit-review/:courseCode", auth, (req, res) => {
         timestamp: Date.now()
     }    
 
-    CourseReview.findByIdAndUpdate(uid,updateObj,(err,result)=>{
+    const searchQuery = {
+        _id: uid
+    };   
+
+    CourseReview.findByIdAndUpdate(uid, updateObj, (err,result)=>{
         if (err){
             console.log(err);
             res.status(500).json({err: "error updating"});
         }else{
+            console.log(result);
             res.status(200).json({success: "success"});
         }
-    })
+    });
 
 });
 
 app.post("/delete-review", auth, (req, res) => {
     const uid = req.body.rev_id;
-
+    console.log(uid); 
     const searchQuery = {
         _id: uid
-    }    
+    };  
 
     CourseReview.findOneAndDelete(searchQuery, function (err, docs) {
         if (err){

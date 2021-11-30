@@ -11,7 +11,6 @@ const CourseList = (props) => {
     useEffect(() => {
         const loggedInUser = localStorage.getItem("course-rev-user");
         token = localStorage.getItem("course-rev-token");
-        console.log(loggedInUser);
         if (loggedInUser) {
           const foundUser = loggedInUser;
           setUser(foundUser);
@@ -26,7 +25,6 @@ const CourseList = (props) => {
         })
         .then((res)=>(res.json()))
         .then((data)=>{
-            console.log(data); 
             setSuccess(data.success);
             setCourses(data.courses);
         });
