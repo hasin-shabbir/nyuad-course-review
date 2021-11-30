@@ -97,7 +97,6 @@ const CourseReviewForm = (props) =>{
         const reqToken = localStorage.getItem("course-rev-token");
 
         if (props.type==="new"){
-
             const config = {
                 headers: {
                     "x-access-token": reqToken
@@ -105,11 +104,9 @@ const CourseReviewForm = (props) =>{
             };
             axios.post('/add-review/'+props.courseCode,params, config)
             .then(function (response) {
-                console.log(response.data);
                 props.checkSubmit(true);
             })
             .catch(function (err) {
-                console.log(err);
                 props.checkSubmit(false);
             });
         }
@@ -121,11 +118,9 @@ const CourseReviewForm = (props) =>{
             };
             axios.post('/edit-review/'+props.courseCode,params, config)
             .then(function (response) {
-                console.log(response.data);
                 props.checkSubmit(true);
             })
             .catch(function (err) {
-                console.log(err);
                 props.checkSubmit(false);
             });
         }
@@ -137,11 +132,9 @@ const CourseReviewForm = (props) =>{
             };
             axios.post('/delete-review',params, config)
             .then(function (response) {
-                console.log(response.data);
                 props.checkSubmit(true);
             })
             .catch(function (err) {
-                console.log(err);
                 props.checkSubmit(false);
             });
         }
