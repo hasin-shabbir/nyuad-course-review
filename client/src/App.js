@@ -1,4 +1,4 @@
-import React, {useEffect,useState} from "react";
+import React, { Suspense } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -7,10 +7,11 @@ import {
 } from "react-router-dom";
 
 import './App.css';
-import CourseList from "./components/courselist/courselist";
-import CourseReview from "./components/coursereview/coursereview";
-import LoginForm from "./components/login-form/login-form";
-import RegisterForm from "./components/register-form/register-form";
+
+const CourseList = React.lazy(()=>import('./components/courselist/courselist'));
+const CourseReview = React.lazy(()=>import('./components/coursereview/coursereview'));
+const LoginForm = React.lazy(()=>import('./components/login-form/login-form'));
+const RegisterForm = React.lazy(()=>import('./components/register-form/register-form'));
 
 function App() {
 
@@ -21,16 +22,32 @@ function App() {
             <Route path="/" element = {<Navigate to="/login" />}
             />
             <Route path="/login" 
-              element={<LoginForm/>}
+              element={
+                <Suspense fallback={<div>Loading...</div>}>  
+                  <LoginForm/>
+                </Suspense>
+              }
             />
             <Route path="/register" 
-              element= {<RegisterForm/>}
+              element= {
+                <Suspense fallback={<div>Loading...</div>}>  
+                  <RegisterForm/>
+                </Suspense>
+              }
             />
             <Route path="/courses" 
-              element={<CourseList />}
+              element={
+                <Suspense fallback={<div>Loading...</div>}>  
+                  <CourseList/>
+                </Suspense>
+              }
             />
             <Route path="/course-review/:courseCodePath"
-              element= {<CourseReview />}
+              element= {
+                <Suspense fallback={<div>Loading...</div>}>  
+                  <CourseReview/>
+                </Suspense>
+              }
             />
           </Routes>
         </Router>    
