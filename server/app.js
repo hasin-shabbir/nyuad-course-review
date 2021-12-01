@@ -167,6 +167,84 @@ app.post('/register',(req,res)=>{
     }
 });
 
+app.post('/updateUsername',auth,(req,res)=>{
+    //register form handling
+    const schema = Joi.object({
+        username: Joi.string().alphanum().required(),
+        password: Joi.string().min(8).required()
+    }).with('password','username');
+
+    try {
+        const {error, value} = schema.validate({ username: req.body.username, password: req.body.password});
+        if (error){
+            res.status(200).json({success: false, message: error.details[0].message});
+            return;
+        }
+    }
+    catch (err) { 
+        res.status(200).json({success: false, message: "missing or invalid form input"});
+    }
+
+    if (!(req.body.password && req.body.username)){
+        res.json({success: false, message: "form values missing!"});
+    }
+    else{
+        const inputUser = req.body.username.toLowerCase();
+        const inputEmail = req.user.email;
+        const userpass = req.body.password;
+        if (userpass.length<8){
+            res.json({success: false, message: "password shorter than 8 characters!"});
+        }else{
+            User.findOne({"email": inputEmail}, (err,result)=>{
+                if (!err && result){
+                    const storedHash = result.password;
+                    bcrypt.compare(userpass,storedHash,function(err,passwordDidMatch){
+                        if (passwordDidMatch){
+                            User.findOneAndUpdate({email: inputEmail}, {username: inputUser},(err,result)=>{
+                                if (!err){
+                                    req.session.regenerate((err)=>{
+                                        if (!err){
+                                            const token = jwt.sign(
+                                                { user_id: result._id, email: result.email, name: inputUser },
+                                                process.env.TOKEN_KEY,
+                                                {
+                                                expiresIn: "2h",
+                                                }
+                                            );
+                                            const reqUser = {
+                                                username: inputUser,
+                                                email: result.email,
+                                                token: token
+                                            }
+                                            req.session.user = reqUser;
+                                            CourseReview.updateMany({user_email: inputEmail}, {user: inputUser}, (err,courses)=>{
+                                                if (!err){
+                                                    res.json({success: true, user: reqUser, message: 'user and course reviews updated'});
+                                                }else{
+                                                    res.json({success: true, user: reqUser, message: 'only user updated'});
+                                                }
+                                            })
+                                        }else{
+                                            res.json({success: false, message: 'an error occured, please try again later!'});
+                                        }
+                                    });
+                                }else{
+                                    res.json({success: false, message: "Failed to update name, try again later!"});
+                                }
+                            });
+                            
+                        }else{
+                            res.json({success: false, message: 'Incorrect password!'});
+                        }
+                    })
+                }else{
+                    res.json({success: false, message: "user does not exist!"});   
+                }
+            })
+        }
+    }
+});
+
 app.post('/request-course', auth, async (req,res)=>{
     
     const code = req.body.code;

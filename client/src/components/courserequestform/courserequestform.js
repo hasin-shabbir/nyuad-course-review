@@ -10,7 +10,6 @@ import {
 } from "../../containers/rootContainers";
 
 import Headerbar from "../headerbar/headerbar";
-import Backbutton from "../backbutton/backbutton";
 
 const Courserequestform = (props) => {
     const {
@@ -69,7 +68,6 @@ const Courserequestform = (props) => {
                 <Headerbar />
 
                 <Container> 
-                    <Backbutton redirectLink="/courses" backName="Back to courses"/>
                     <Row>
                         <Row className={css.center}>
                             <form onSubmit={handleSubmit(handleFormSubmit)} className={css.form}>

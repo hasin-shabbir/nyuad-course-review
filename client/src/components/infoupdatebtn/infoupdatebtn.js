@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import styled from "styled-components";
 
-const MyReviewsBtn = (props) => {
+const InfoUpdateBtn = (props) => {
 
     const [redirect,setRedirect] = useState(null);
 
     const handleClick = () => {
-        if (window.location.pathname==="/user-reviews"){
+        if (window.location.pathname==="/updateUserInfo"){
             window.location.reload(false);
             return;
         }
-        setRedirect("/user-reviews");
+        setRedirect("/updateUserInfo");
     };
 
     return (
@@ -21,7 +21,7 @@ const MyReviewsBtn = (props) => {
             ) : (
                 <Button 
                     type="submit" 
-                    value="My Reviews"
+                    value="Update Username"
                     onClick={handleClick}    
                 />
             )}
@@ -46,4 +46,4 @@ const Button = styled.input`
 `;
 
 
-export default MyReviewsBtn;
+export default InfoUpdateBtn;

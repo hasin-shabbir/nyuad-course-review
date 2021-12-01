@@ -11,7 +11,6 @@ import {
 import CourseReviewForm from "../coursereview-form/coursereview-form";
 import CourseReviewItem from "../coursereview-item/coursereview-item";
 import Headerbar from "../headerbar/headerbar";
-import Backbutton from "../backbutton/backbutton";
 
 const CourseReview = (props) =>{
     const location = useLocation();
@@ -91,7 +90,6 @@ const CourseReview = (props) =>{
             <Headerbar />
 
             <Container>
-                <Backbutton redirectLink="/courses" backName="Back to courses"/>
                 <Row>
                     <Col1>
                         <CourseTitle>{courseName}</CourseTitle>

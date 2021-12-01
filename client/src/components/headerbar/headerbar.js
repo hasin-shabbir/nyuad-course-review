@@ -7,7 +7,10 @@ import {
 } from "../../containers/rootContainers";
 
 import Logout from "../logout/logout";
+import CourseListButton from "../courselistbutton/courselistbutton";
 import MyReviewsBtn from "../myreviewsbtn/myreviewsbtn";
+import InfoUpdateBtn from "../infoupdatebtn/infoupdatebtn";
+import CourseList from "../courselist/courselist";
 
 const Headerbar = (props) => {
     const [user,setUser] = useState(null);
@@ -32,7 +35,13 @@ const Headerbar = (props) => {
                         <WebsiteTitle>NYUAD COURSE REVIEW</WebsiteTitle>
                         <Row>
                             <PaddedDiv>
+                                <CourseListButton/>
+                            </PaddedDiv>
+                            <PaddedDiv>
                                 <MyReviewsBtn/>
+                            </PaddedDiv>
+                            <PaddedDiv>
+                                <InfoUpdateBtn/>
                             </PaddedDiv>
                             <PaddedDiv>
                                 <Logout/>

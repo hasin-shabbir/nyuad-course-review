@@ -11,7 +11,6 @@ import {
 import CourseReviewForm from "../coursereview-form/coursereview-form";
 import CourseReviewItem from "../coursereview-item/coursereview-item";
 import Headerbar from "../headerbar/headerbar";
-import Backbutton from "../backbutton/backbutton";
 
 const UserReviews = (props) =>{
     const location = useLocation();
@@ -84,9 +83,6 @@ const UserReviews = (props) =>{
             <>
             <Headerbar />
 
-            <Container>
-                <Backbutton redirectLink="/courses" backName="Back to courses"/>
-            </Container>
             {
                 Object.keys(reviews).slice(0).reverse().map((rev, key)=>{
                     return (<CourseReviewItem
