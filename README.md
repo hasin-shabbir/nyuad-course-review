@@ -112,19 +112,15 @@ An Example Course Review:
 
 ## Research Topics
 
-* (4 points) Integrate user authentication
-    * I'm going to be using Firebase Authentication (by Google) for user authentication
-    * Firebase provides extensive options for user authentication including through SDKs and external APIs and integration of Federated Identity Providers (Facebook, Google login etc.)
-    * Due to complexity of effectively managing user authentication through multiple platforms using Firebase, assigned it 4 points.
 * (5 points) React.js (Front-end framework)
     * using the popular React.js as the frontend framework
     * will also research on application state management using React Hooks
     * will be using react-router-dom for front-end routing
     * styled-components library for component styling
     * since React requires understanding of more advanced concepts including libraries to be used as a supplement/complement, and is a challenging framework to learn, I have assigned it 5 points.
-* (2 points) loadable-components (Javascript library)
+* (2 points) React.lazy (Javascript library)
     * To be used to import components into React dynamically and divide the entire web application into bundles/chunks
-    * This will allow for serving only what is needed and not the entire content at once, helping in better web application performance/speed
+    * This will allow for serving only what is needed and not the entire content at once, helping in better web application performance/speed and less network bandwidth requirement
 * (2 points) Modular css and Styled Components, other ready to use component libraries
     * Styled components or customization of styling html elements without having to create functional or class-based react components.
     * Modular css will assist in localizing styling for components
@@ -133,6 +129,10 @@ An Example Course Review:
     * react-hook-form is a powerful and lightweight library that allows for complex and dynamic form validation through extensive means.
     * Ability to override default library behaviour allows for customization of validation methods as needed
     * Useful for the project since it is based on multiple forms for which validation is a necessity
+* (4 points) Integrate user authentication
+    * I'm going to be using Firebase Authentication (by Google) for user authentication
+    * Firebase provides extensive options for user authentication including through SDKs and external APIs and integration of Federated Identity Providers (Facebook, Google login etc.)
+    * Due to complexity of effectively managing user authentication through multiple platforms using Firebase, assigned it 4 points.
 
 15 points total out of 8 required points 
 
