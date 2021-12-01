@@ -134,7 +134,7 @@ An Example Course Review:
     * Firebase provides extensive options for user authentication including through SDKs and external APIs and integration of Federated Identity Providers (Facebook, Google login etc.)
     * Due to complexity of effectively managing user authentication through multiple platforms using Firebase, assigned it 4 points.
 
-15 points total out of 8 required points 
+16 points total out of 8 required points 
 
 
 ## [Link to Initial Main Project File](server/app.js) 
