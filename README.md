@@ -138,9 +138,9 @@ An Example Course Review:
 ## Annotations / References Used
 
 1. [React Documentation](https://reactjs.org/docs/getting-started.html)
-2. [Redux State Management Documentation](https://react-redux.js.org/tutorials/quick-start)
-3. [Firebase Authentication Documentation](https://firebase.google.com/docs/auth)
-4. [Documentation for loadable-components](https://loadable-components.com/docs/)
-5. [Documentation for Material UI](https://mui.com/getting-started/usage/)
-6. [Parsley form validation documentation](https://parsleyjs.org/doc/index.html)
+2. [Documentation for React.lazy](https://reactjs.org/docs/code-splitting.html)
+3. [Documentation for react-hook-form](https://react-hook-form.com/get-started)
+4. [Documentation for Joi form validator](https://joi.dev/api/?v=17.4.3)
+5. [Documentation for styled-components](https://styled-components.com/)
+6. [Documentation for multi-select dropdown](https://github.com/hc-oss/react-multi-select-component)
 
