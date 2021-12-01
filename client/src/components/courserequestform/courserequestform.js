@@ -94,6 +94,7 @@ const Courserequestform = (props) => {
                         </Row>
                         <Row>
                             <ul>
+                                <li><b>For AIT graders: use the following one time codes test1, test2, test3, test4, test5, test6 to add these courses</b></li>
                                 <li>A response may take some time depending on network speed, do not refresh or redirect from the page after submitting request.</li>
                                 <li>On a request being approved, you will be redirected to the course list where you can then search for your course</li>
                                 <li>On request being rejected, you will be alerted with the reason.</li>

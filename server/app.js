@@ -169,23 +169,53 @@ app.post('/register',(req,res)=>{
 app.post('/request-course', auth, async (req,res)=>{
     
     const code = req.body.code;
-    async function setCourses(val){
-        
-        
-        if (!(val)){
+    async function setCourses(vals){
+              
+        const allCourses=[...vals];
+        allCourses.push({
+            code: 'test1',
+            level: 1000,
+            name: 'test1',
+            program: ['test1']
+        });
+        allCourses.push({
+            code: 'test2',
+            level: 1000,
+            name: 'test2',
+            program: ['test2']
+        });
+        allCourses.push({
+            code: 'test3',
+            level: 1000,
+            name: 'test3',
+            program: ['test3']
+        });
+        allCourses.push({
+            code: 'test4',
+            level: 1000,
+            name: 'test4',
+            program: ['test4']
+        });
+        allCourses.push({
+            code: 'test5',
+            level: 1000,
+            name: 'test5',
+            program: ['test5']
+        });
+        allCourses.push({
+            code: 'test6',
+            level: 1000,
+            name: 'test6',
+            program: ['test6']
+        });
+
+        const matchedCourses = allCourses.filter((course)=>{return course.code===code});
+        if (matchedCourses.length<1){
             res.json({success: false, message: "could not find course specified!"});
             return;
         }
-        
-        const course = {
-            name: val.name,
-            code: val.code,
-            level: val.level,
-            program: [...val.program]
-        }
 
-
-        // matchedCourses.forEach((course)=>{
+        matchedCourses.forEach((course)=>{
             if (course.code===code){
                 Course.findOne({"code": code}, (err,result)=>{
                     if (result){
@@ -209,10 +239,10 @@ app.post('/request-course', auth, async (req,res)=>{
                     }  
                 })
             }
-        // })
+        })
     }
     
-    scrapper.scrape(setCourses,code);
+    scrapper.scrape(setCourses);
 });
 
 //ENDPOINT FOR API to respond to GET requests from the React App
