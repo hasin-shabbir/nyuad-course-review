@@ -129,8 +129,11 @@ An Example Course Review:
     * Styled components or customization of styling html elements without having to create functional or class-based react components.
     * Modular css will assist in localizing styling for components
     * Component libraries (such as react-multi-select-component) will assist in avoiding reinventing the wheel for very common components yet still allow for customization as needed.
+* (2 points) Authentication using JSONWebTokens
+    * Authentication implementation using JWT and an accompanying API in order to assist with login system, authorization, and user specific content.
+    
 
-13 points total out of 8 required points 
+15 points total out of 8 required points 
 
 
 ## [Link to Initial Main Project File](server/app.js) 
