@@ -94,7 +94,7 @@ const RegisterForm = (props) => {
                         {errors.email && <p className={css.error}>Invalid or missing email.</p>}
                     </div>
                     <div className={css.inputBlock}>
-                        Password: <input {...register('password1', {required: true,minLength: 8})} className={css.passwordInput} type="password" name="password" value={password} onChange={handlePassword}/>
+                        Password: <input {...register('password', {required: true,minLength: 8})} className={css.passwordInput} type="password" name="password" value={password} onChange={handlePassword}/>
                         {errors.password && <p className={css.error}>Invalid or missing password.</p>}
                     </div>
                     <div className={css.inputBlock}>
@@ -102,8 +102,8 @@ const RegisterForm = (props) => {
                             required: "Please confirm password!",
                             validate: {
                                 matchesPreviousPassword: (value) => {
-                                    const { password1 } = getValues();
-                                    return password1 === value || "Entered passwords do not match!";
+                                    const { password } = getValues();
+                                    return password === value || 'Entered passwords do not match!';
                                 }
                             }
                         })}
