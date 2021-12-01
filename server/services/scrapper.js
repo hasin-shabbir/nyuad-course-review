@@ -7,6 +7,18 @@ const scrape = async (fn) => {
     fn(data);   
 }
 
+class Scrapper{
+    constructor(){
+        this.data = data
+    }
+    getData(){
+        return this.data;
+    }
+    scrape(fn){
+        fn(this.getData());
+    }
+}
+
 module.exports = {
-    scrape: scrape
+    Scrapper: Scrapper
 }

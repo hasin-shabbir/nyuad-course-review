@@ -6,7 +6,7 @@ const auth = require("./middleware/auth");
 const mongoose = require('mongoose');
 const Joi = require('joi');
 
-const scrapper = require('./services/scraper');
+const Scrapper = require('./services/scrapper');
 
 const express = require('express');
 const path = require('path');
@@ -18,6 +18,7 @@ const app = express();
 
 //for sessions
 const session = require('express-session');
+const scrapper = require('./services/scrapper');
 const sessionOptions = {
     secret: 'secret cookie',
     resave: true,
@@ -241,7 +242,7 @@ app.post('/request-course', auth, async (req,res)=>{
             }
         })
     }
-    
+    const scrapper = new Scrapper.Scrapper();
     scrapper.scrape(setCourses);
 });
 
