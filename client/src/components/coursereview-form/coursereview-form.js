@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import axios from "axios";
 
@@ -23,6 +23,12 @@ const CourseReviewForm = (props) =>{
     const [grading,setGrading] = useState('');
     const [workload,setWorkload] = useState('');
     const [textReview, setTextReview] = useState('');
+    const [confirmDeleteState,setConfirmDeleteState] = useState(false);
+    const [btnVal, setBtnVal] = useState("");
+
+    useEffect(()=>{
+        setBtnVal(props.type === "new" ? "Submit review" : props.type);
+    },[]);
   
     const handleRating = (e) => {
         let val;
@@ -62,6 +68,11 @@ const CourseReviewForm = (props) =>{
     const handleFormSubmit = (e) => {
         let params = {};
         if (props.type ==="delete"){
+            setBtnVal('Click again to confirm deletion');
+            if (confirmDeleteState === false){
+                setConfirmDeleteState(true);
+                return;
+            }
             params = {
                 rev_id: props.reviewId
             }
@@ -248,7 +259,7 @@ const CourseReviewForm = (props) =>{
                 </>
             )}
                 
-            <input type="submit" className={css.subBtn} value={props.type === "new" ? "Submit review" : props.type} />
+            <input type="submit" className={css.subBtn} value={btnVal} />
         </form>
           
     </>
