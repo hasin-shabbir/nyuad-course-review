@@ -7,20 +7,10 @@ const CourseList = (props) => {
     const [success,setSuccess] = useState(true);
     const [courses,setCourses] = useState(null);
     const [allCourses, setAllCourses] = useState(null);
-    const [user,setUser] = useState(null);  
-    
-    let token;
-    
-    useEffect(() => {
-        const loggedInUser = localStorage.getItem("course-rev-user");
-        token = localStorage.getItem("course-rev-token");
-        if (token) {
-          const foundUser = loggedInUser;
-          setUser(foundUser);
-        }
-    },[]);
+    const [token, setToken] = useState(localStorage.getItem("course-rev-token"));
 
     useEffect(()=>{
+        
         fetch('/get-courses',{
             headers: {
                 "x-access-token": token
@@ -43,7 +33,6 @@ const CourseList = (props) => {
         const newCourses = [];
         allCourses.forEach(initialCourse=>{
             const courseCopy = {};
-            let levelCheck = false;
             courseCopy.name = initialCourse.name;
             courseCopy.code = initialCourse.code;
             courseCopy.level = initialCourse.level;
@@ -98,7 +87,7 @@ const CourseList = (props) => {
 
     return (
         <>
-        {user ? (
+        {token ? (
             <>
                 <Headerbar />
                 <SearchCourse onSubmit={filterCourses}/>
