@@ -28,7 +28,7 @@ const Headerbar = (props) => {
                         <UserDisplay>
                             Hello, {user}!
                         </UserDisplay>
-
+                        <WebsiteTitle>NYUAD COURSE REVIEW</WebsiteTitle>
                         <Logout />
                     </HeaderRow>
                 </HeaderContainer>
@@ -41,6 +41,12 @@ const UserDisplay = styled.p`
     font-size: 20px;
     text-transform: capitalize;
 `;
+
+const WebsiteTitle = styled.p`
+    font-size: 20px;
+    color: #57068c;
+    text-align: center;
+`
 
 const HeaderDiv = styled.div`
     border-bottom: 1px solid grey;
