@@ -289,7 +289,7 @@ app.post('/request-course', auth, async (req,res)=>{
         });
 
         function secureFilter(param, property, tester){
-            if (!param){
+            if (!param || param === undefined || param=== null){
                 return [];
             }
             return param.filter((el)=>{return el[property]=== tester})
