@@ -112,7 +112,7 @@ An Example Course Review:
 
 ## Research Topics
 
-* (5 points) React.js (Front-end framework)
+* (6 points) React.js (Front-end framework)
     * using the popular React.js as the frontend framework
     * will also research on application state management using React Hooks
     * will be using react-router-dom for front-end routing
@@ -129,12 +129,8 @@ An Example Course Review:
     * Styled components or customization of styling html elements without having to create functional or class-based react components.
     * Modular css will assist in localizing styling for components
     * Component libraries (such as react-multi-select-component) will assist in avoiding reinventing the wheel for very common components yet still allow for customization as needed.
-* (4 points) Integrate user authentication
-    * I'm going to be using Firebase Authentication (by Google) for user authentication
-    * Firebase provides extensive options for user authentication including through SDKs and external APIs and integration of Federated Identity Providers (Facebook, Google login etc.)
-    * Due to complexity of effectively managing user authentication through multiple platforms using Firebase, assigned it 4 points.
 
-16 points total out of 8 required points 
+13 points total out of 8 required points 
 
 
 ## [Link to Initial Main Project File](server/app.js) 
