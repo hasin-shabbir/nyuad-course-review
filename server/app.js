@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const auth = require("./middleware/auth");
 const mongoose = require('mongoose');
+const Joi = require('joi');
 
 const express = require('express');
 const path = require('path');
@@ -40,21 +41,24 @@ app.get('/', (req, res) => {
     // res.redirect('/login');
 });
 
-// app.get('/register', (req, res) => {
-//     //registration page
-// });
-
-// app.post('/register', (req, res) => {
-//     //registration form handling
-//     // res.redirect('/course-list'); //redirect to course-list upon successful registration by logging in the user
-// });
-
-// app.get('/login', (req, res) => {
-//     //login page
-// });
-
 app.post('/login',(req,res)=>{
     //login form handling
+    const schema = Joi.object({
+        email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['edu'] } }).required(),
+        password: Joi.string().min(8).required()
+    }).with('email', 'password');
+
+    try{
+        const {error, value} = schema.validate({email: req.body.email, password: req.body.password});
+        if (error){
+            res.status(200).json({success: false, message: error.details[0].message});
+            return;
+        }
+    }catch (err){
+        res.status(200).json({success: false, message: "missing or invalid form input"});
+    }
+    
+
     if (!(req.body.password && req.body.email)){
         res.json({success: false, message: "form values missing!"});
     }else{
@@ -101,7 +105,24 @@ app.post('/login',(req,res)=>{
 });
 
 app.post('/register',(req,res)=>{
-    //login form handling
+    //register form handling
+    const schema = Joi.object({
+        username: Joi.string().alphanum().required(),
+        password: Joi.string().min(8).required(),
+        email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['edu'] } }).required()
+    }).with('password','email').with('email','username');
+
+    try {
+        const {error, value} = schema.validate({ username: req.body.username, password: req.body.password, email: req.body.email});
+        if (error){
+            res.status(200).json({success: false, message: error.details[0].message});
+            return;
+        }
+    }
+    catch (err) { 
+        res.status(200).json({success: false, message: "missing or invalid form input"});
+    }
+
     if (!(req.body.password && req.body.username && req.body.email)){
         res.json({success: false, message: "form values missing!"});
     }
@@ -136,33 +157,6 @@ app.post('/register',(req,res)=>{
         }
     }
     // res.redirect('/course-list'); //redirect to course-list upon successful login
-});
-
-app.get('/course-list',(req,res)=>{
-    //handle any query parameters here
-    //displaying the course list page
-});
-
-app.get('/review-page/:course',(req,res)=>{
-    //rendering the review page for the particular course in the request parameters
-});
-
-app.get('/write-a-review/:course',(req,res)=>{
-    //rendering the write a review page for the particular course in the request parameters
-});
-
-app.post('/write-a-review/:course',(req,res)=>{
-    //handling form for writing a review for the particular course
-    // res.redirect('/write-a-review/:course') //redirect to reviews page for the course upon successful review post
-});
-
-app.get('/edit-review/:course',(req,res)=>{
-    //rendering the edit a review page for the logged in user for the particular course in the request parameters
-});
-
-app.post('/edit-review/:course',(req,res)=>{
-    //handling form for editing a review for the particular course
-    // res.redirect('/edit-a-review/:course') //redirect to reviews page for the course upon successful review edit
 });
 
 //ENDPOINT FOR API to respond to GET requests from the React App
@@ -216,6 +210,34 @@ app.post("/add-review/:courseCode", auth, (req, res) => {
     const grading = req.body.grading;
     const textReview = req.body.textReview;
 
+    //add review form handling
+    const schema = Joi.object({
+        quality: Joi.number().required(),
+        difficulty: Joi.number().required(),
+        workload: Joi.number().required(),
+        grading: Joi.number().required(),
+        textReview: Joi.string().alphanum().required()
+    }).with('quality','difficulty').with('workload','grading').with('grading','textReview');
+
+    try {
+        const {error, value} = schema.validate(
+            { 
+                quality: quality,
+                difficulty: difficulty,
+                workload: workload,
+                grading: grading,
+                textReview: textReview
+            }
+        );
+        if (error){
+            res.status(200).json({success: false,message: error.details[0].message});
+            return;
+        }
+    }
+    catch (err) { 
+        res.status(200).json({success: false, message: "missing or invalid form input"});
+    }
+
     new CourseReview({
         course: req.params.courseCode,
         user: req.user.name,
@@ -246,6 +268,34 @@ app.post("/edit-review/", auth, (req, res) => {
     const grading = req.body.grading;
     const textReview = req.body.textReview;
     const uid = req.body.rev_id;
+
+    //edit review form handling
+    const schema = Joi.object({
+        quality: Joi.number().required(),
+        difficulty: Joi.number().required(),
+        workload: Joi.number().required(),
+        grading: Joi.number().required(),
+        textReview: Joi.string().required()
+    }).with('quality','difficulty').with('workload','grading').with('grading','textReview');
+
+    try {
+        const {error, value} = schema.validate(
+            { 
+                quality: quality,
+                difficulty: difficulty,
+                workload: workload,
+                grading: grading,
+                textReview: textReview
+            }
+        );
+        if (error){
+            res.status(200).json({success: false, message: error.details[0].message});
+            return;
+        }
+    }
+    catch (err) { 
+        res.status(200).json({success: false, message: "missing or invalid form input"});
+    }
 
     const updateObj = {
         review: {

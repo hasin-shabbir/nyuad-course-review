@@ -111,6 +111,9 @@ const CourseReviewForm = (props) =>{
             };
             axios.post('/add-review/'+props.courseCode,params, config)
             .then(function (response) {
+                if (response.data.success !== null && response.data.success !== undefined && response.data.success === false){
+                    alert(response.data.message);
+                }
                 props.checkSubmit(true);
             })
             .catch(function (err) {
@@ -125,6 +128,9 @@ const CourseReviewForm = (props) =>{
             };
             axios.post('/edit-review/', params, config)
             .then(function (response) {
+                if (response.data.success !== null && response.data.success !== undefined && response.data.success === false){
+                    alert(response.data.message);
+                }
                 props.checkSubmit(true);
             })
             .catch(function (err) {
