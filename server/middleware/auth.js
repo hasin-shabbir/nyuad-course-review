@@ -1,3 +1,4 @@
+//authentication middleware from https://www.section.io/engineering-education/how-to-build-authentication-api-with-jwt-token-in-nodejs/
 const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
