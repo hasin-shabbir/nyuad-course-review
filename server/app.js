@@ -379,12 +379,10 @@ app.get("/get-reviews/:courseCode",auth,(req,res)=>{
 
 app.get("/get-user-reviews",auth,(req,res)=>{
     const userEmail = req.user.email;
-    console.log(userEmail);
     CourseReview.find({user_email: userEmail}, function(err, reviews, count) {
         if (err){
             console.log(err);
         }else{
-            console.log(reviews);
             const revs = reviews.map((rev,i)=> {
                 if (rev.user_email===userEmail){
                     return {...rev._doc,currentUser: true};
