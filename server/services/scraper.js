@@ -1,9 +1,9 @@
 const Nightmare = require('nightmare');
 const nightmare = Nightmare({ show: false });
 
-const scrape = (fn) => {
+const scrape = async (fn) => {
     
-    nightmare
+    await nightmare
     .goto('https://nyuad.nyu.edu/en/course-list.html')
     .wait('.item')
     .evaluate(function() {
@@ -19,7 +19,7 @@ const scrape = (fn) => {
     })
     .then(fn)
     .catch(error => {
-        console.error('Search failed:', error)
+        console.error('Search failed:', error);
     });
 }
 

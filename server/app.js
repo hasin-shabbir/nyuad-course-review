@@ -166,10 +166,10 @@ app.post('/register',(req,res)=>{
     }
 });
 
-app.post('/request-course', auth, (req,res)=>{
+app.post('/request-course', auth, async (req,res)=>{
     let allCourses=[];
     const code = req.body.code;
-    function setCourses(vals){
+    async function setCourses(vals){
         allCourses=[...vals];
         
         const matchedCourses = allCourses.filter((course)=>{return course.code===code});
