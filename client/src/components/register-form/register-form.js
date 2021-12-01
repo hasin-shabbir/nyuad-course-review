@@ -81,7 +81,7 @@ const RegisterForm = (props) => {
             <h1>Register</h1>
                 <form className={css.form} method="POST" onSubmit={handleSubmit(handleRegister)}>
                     <div className={css.inputBlock}>
-                        Username: <input {...register('username', {required: true})} className={css.textInput} type="text" name="username" value={userName} onChange={handleUsername} placeholder="john doe"/>
+                        Username: <input {...register('username', {required: true})} className={css.textInput} type="text" name="username" value={userName} onChange={handleUsername} placeholder="johndoe123"/>
                         {errors.username && <p className={css.error}>Username is required.</p>}
                     </div>
                     <div className={css.inputBlock}>
