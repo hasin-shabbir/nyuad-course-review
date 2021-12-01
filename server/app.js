@@ -216,7 +216,7 @@ app.post("/add-review/:courseCode", auth, (req, res) => {
         difficulty: Joi.number().required(),
         workload: Joi.number().required(),
         grading: Joi.number().required(),
-        textReview: Joi.string().alphanum().required()
+        textReview: Joi.string().required()
     }).with('quality','difficulty').with('workload','grading').with('grading','textReview');
 
     try {
