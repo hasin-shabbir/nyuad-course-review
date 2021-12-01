@@ -6,6 +6,8 @@ const auth = require("./middleware/auth");
 const mongoose = require('mongoose');
 const Joi = require('joi');
 
+const scrapper = require('./services/scraper');
+
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -163,7 +165,47 @@ app.post('/register',(req,res)=>{
             })
         }
     }
-    // res.redirect('/course-list'); //redirect to course-list upon successful login
+});
+
+app.post('/request-course', auth, (req,res)=>{
+    let allCourses=[];
+    const code = req.body.code;
+    function setCourses(vals){
+        allCourses=[...vals];
+        
+        const matchedCourses = allCourses.filter((course)=>{return course.code===code});
+        if (matchedCourses.length<1){
+            res.json({success: false, message: "could not find course specified!"});
+            return;
+        }
+
+        matchedCourses.forEach((course)=>{
+            if (course.code===code){
+                Course.findOne({"code": code}, (err,result)=>{
+                    if (result){
+                        res.json({success: false, message: "course already exists!"});
+                        return;
+                    }else{
+                        new Course({
+                            name: course.name.replace(/(\r\n|\n|\r)/gm, ""),
+                            level: course.level,
+                            code: course.code,
+                            program: [...course.program]
+                        }).save(function(err,newCourse){
+                            if (err){
+                                res.json({success: false, message: "saving course failed, please try again!"});
+                                return;
+                            }else{
+                                res.json({success: true, message: 'course saved successfully'});
+                                return;
+                            }
+                        });
+                    }  
+                })
+            }
+        })
+    }
+    scrapper.scrape(setCourses);
 });
 
 //ENDPOINT FOR API to respond to GET requests from the React App

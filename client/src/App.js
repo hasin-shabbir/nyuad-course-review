@@ -12,6 +12,7 @@ const CourseList = React.lazy(()=>import('./components/courselist/courselist'));
 const CourseReview = React.lazy(()=>import('./components/coursereview/coursereview'));
 const LoginForm = React.lazy(()=>import('./components/login-form/login-form'));
 const RegisterForm = React.lazy(()=>import('./components/register-form/register-form'));
+const Courserequestform = React.lazy(()=>import('./components/courserequestform/courserequestform'));
 
 function App() {
 
@@ -46,6 +47,13 @@ function App() {
               element= {
                 <Suspense fallback={<div>Loading...</div>}>  
                   <CourseReview/>
+                </Suspense>
+              }
+            />
+            <Route path="/course-request"
+              element= {
+                <Suspense fallback={<div>Loading...</div>}>  
+                  <Courserequestform />
                 </Suspense>
               }
             />

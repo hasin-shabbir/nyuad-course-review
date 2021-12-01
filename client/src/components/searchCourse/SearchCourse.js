@@ -61,6 +61,7 @@ const SearchCourse = (props) => {
     }
 
     return (
+        <>
         <SearchContainer>
             <Row>
                 <DropdownColumn>
@@ -93,11 +94,18 @@ const SearchCourse = (props) => {
             <Row>
                 <SubmitButton type="submit" value="Search" onClick={handleSubmit}/>
             </Row>
+            
         </SearchContainer> 
+        <div>
+            <CourseRequestPara>Don't see the course you are looking for? <a href="/course-request">Submit a request here</a> and get it approved immediately!</CourseRequestPara>
+        </div>
+    </>
     )
 }
 
-
+const CourseRequestPara = styled.p`
+    text-align: center;
+`;
 const SearchContainer = styled(Container)`
     display: grid;
     align-items: center;

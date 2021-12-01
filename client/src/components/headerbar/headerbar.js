@@ -45,6 +45,7 @@ const UserDisplay = styled.p`
 const HeaderDiv = styled.div`
     border-bottom: 1px solid grey;
     margin-bottom: 10px;
+    box-shadow: 1px 2px 2px grey;
 `;
 
 const HeaderContainer = styled(Container)`
