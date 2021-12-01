@@ -1,0 +1,15 @@
+.subBtn {
+    background-color: white;
+    border: 1px solid #57068c;
+    color: #57068c;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.subBtn:hover{
+    background-color: #57068c;
+    border: 1px solid #57068c;
+    color: white;
+}
