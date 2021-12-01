@@ -118,6 +118,10 @@ An Example Course Review:
     * will be using react-router-dom for front-end routing
     * styled-components library for component styling
     * since React requires understanding of more advanced concepts including libraries to be used as a supplement/complement, and is a challenging framework to learn, I have assigned it 5 points.
+* (3 points) Perform form validation using react-hook-form library (client-side) and Joi library (server-side)
+    * Both libraries are powerful and lightweight that allow for complex and dynamic form validation through extensive means.
+    * Ability to override default library behaviour allows for customization of validation methods as needed
+    * Useful for the project since it is based on multiple forms for which validation is a necessity and provides an added layer of security
 * (2 points) React.lazy (Javascript library)
     * To be used to import components into React dynamically and divide the entire web application into bundles/chunks
     * This will allow for serving only what is needed and not the entire content at once, helping in better web application performance/speed and less network bandwidth requirement
@@ -125,10 +129,6 @@ An Example Course Review:
     * Styled components or customization of styling html elements without having to create functional or class-based react components.
     * Modular css will assist in localizing styling for components
     * Component libraries (such as react-multi-select-component) will assist in avoiding reinventing the wheel for very common components yet still allow for customization as needed.
-* (2 points) Perform client-side form validation using react-hook-form library
-    * react-hook-form is a powerful and lightweight library that allows for complex and dynamic form validation through extensive means.
-    * Ability to override default library behaviour allows for customization of validation methods as needed
-    * Useful for the project since it is based on multiple forms for which validation is a necessity
 * (4 points) Integrate user authentication
     * I'm going to be using Firebase Authentication (by Google) for user authentication
     * Firebase provides extensive options for user authentication including through SDKs and external APIs and integration of Federated Identity Providers (Facebook, Google login etc.)
