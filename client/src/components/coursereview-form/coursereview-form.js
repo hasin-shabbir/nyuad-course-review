@@ -25,7 +25,6 @@ const CourseReviewForm = (props) =>{
     const [textReview, setTextReview] = useState('');
   
     const handleRating = (e) => {
-        console.log('hello');
         let val;
         //check for validity of input type
         if (isNumeric(e.target.value)){

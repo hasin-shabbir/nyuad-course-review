@@ -39,9 +39,9 @@ const Course = mongoose.model('Course');
 const User = mongoose.model('User');
 const CourseReview = mongoose.model('CourseReview');
 
-app.get('/', (req, res) => {
-    // res.redirect('/login');
-});
+// app.get('/', (req, res) => {
+//     // res.redirect('/login');
+// });
 
 app.post('/login',(req,res)=>{
     //login form handling
@@ -106,7 +106,6 @@ app.post('/login',(req,res)=>{
             }
         })
     }
-    // res.redirect('/course-list'); //redirect to course-list upon successful login
 });
 
 app.post('/register',(req,res)=>{
@@ -287,26 +286,33 @@ app.post("/add-review/:courseCode", auth, (req, res) => {
         res.status(200).json({success: false, message: "missing or invalid form input"});
     }
 
-    new CourseReview({
-        course: req.params.courseCode,
-        user: req.user.name,
-        user_email: req.user.email,
-        review: {
-            description: textReview,
-            quality: quality,
-            difficulty: difficulty,
-            grading: grading,
-            workload: workload
-        },
-        timestamp: Date.now()
-    }).save(function(err, newreview, count) {
-        if (err){
-            console.log(err);
-            res.status(500).json({err: 'error in saving'});
+    const userEmail = req.user.email;
+    CourseReview.findOne({user_email: userEmail, course: req.params.courseCode},(err,result)=>{
+        if (result){
+            res.status(200).json({success: false, message: "You already have a review posted for the course, edit your review instead."});
         }else{
-            res.status(200).json({posted: 'review posted'});
+            new CourseReview({
+                course: req.params.courseCode,
+                user: req.user.name,
+                user_email: req.user.email,
+                review: {
+                    description: textReview,
+                    quality: quality,
+                    difficulty: difficulty,
+                    grading: grading,
+                    workload: workload
+                },
+                timestamp: Date.now()
+            }).save(function(err, newreview, count) {
+                if (err){
+                    console.log(err);
+                    res.status(500).json({err: 'error in saving'});
+                }else{
+                    res.status(200).json({posted: 'review posted'});
+                }
+            });
         }
-    });
+    })   
 
 });
 
@@ -366,7 +372,6 @@ app.post("/edit-review/", auth, (req, res) => {
             console.log(err);
             res.status(500).json({err: "error updating"});
         }else{
-            console.log(result);
             res.status(200).json({success: "success"});
         }
     });
@@ -375,7 +380,6 @@ app.post("/edit-review/", auth, (req, res) => {
 
 app.post("/delete-review", auth, (req, res) => {
     const uid = req.body.rev_id;
-    console.log(uid); 
     const searchQuery = {
         _id: uid
     };  
