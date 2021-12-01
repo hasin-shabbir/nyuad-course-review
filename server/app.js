@@ -167,18 +167,25 @@ app.post('/register',(req,res)=>{
 });
 
 app.post('/request-course', auth, async (req,res)=>{
-    let allCourses=[];
+    
     const code = req.body.code;
-    async function setCourses(vals){
-        allCourses=[...vals];
+    async function setCourses(val){
         
-        const matchedCourses = allCourses.filter((course)=>{return course.code===code});
-        if (matchedCourses.length<1){
+        
+        if (!(val)){
             res.json({success: false, message: "could not find course specified!"});
             return;
         }
+        
+        const course = {
+            name: val.name,
+            code: val.code,
+            level: val.level,
+            program: [...val.program]
+        }
 
-        matchedCourses.forEach((course)=>{
+
+        // matchedCourses.forEach((course)=>{
             if (course.code===code){
                 Course.findOne({"code": code}, (err,result)=>{
                     if (result){
@@ -202,9 +209,10 @@ app.post('/request-course', auth, async (req,res)=>{
                     }  
                 })
             }
-        })
+        // })
     }
-    scrapper.scrape(setCourses);
+    
+    scrapper.scrape(setCourses,code);
 });
 
 //ENDPOINT FOR API to respond to GET requests from the React App
