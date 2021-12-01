@@ -81,7 +81,7 @@ const RegisterForm = (props) => {
             <h1>Register</h1>
                 <form className={css.form} method="POST" onSubmit={handleSubmit(handleRegister)}>
                     <div className={css.inputBlock}>
-                        Username: <input {...register('username', {required: true})} className={css.textInput} type="text" name="username" value={userName} onChange={handleUsername}/>
+                        Username: <input {...register('username', {required: true})} className={css.textInput} type="text" name="username" value={userName} onChange={handleUsername} placeholder="john doe"/>
                         {errors.username && <p className={css.error}>Username is required.</p>}
                     </div>
                     <div className={css.inputBlock}>
@@ -90,11 +90,11 @@ const RegisterForm = (props) => {
                                     pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                                 })
                             } 
-                            className={css.textInput} type="text" name="email" value={email} onChange={handleEmail}/>
+                            className={css.textInput} type="text" name="email" value={email} onChange={handleEmail} placeholder="nyu.edu only"/>
                         {errors.email && <p className={css.error}>Invalid or missing email.</p>}
                     </div>
                     <div className={css.inputBlock}>
-                        Password: <input {...register('password', {required: true,minLength: 8})} className={css.passwordInput} type="password" name="password" value={password} onChange={handlePassword}/>
+                        Password: <input {...register('password', {required: true,minLength: 8})} className={css.passwordInput} type="password" name="password" value={password} onChange={handlePassword} placeholder="minimum 8 characters"/>
                         {errors.password && <p className={css.error}>Invalid or missing password.</p>}
                     </div>
                     <div className={css.inputBlock}>
@@ -107,7 +107,7 @@ const RegisterForm = (props) => {
                                 }
                             }
                         })}
-                        className={css.passwordInput} type="password" name="password2" value={password2} onChange={handlePassword2}/>
+                        className={css.passwordInput} type="password" name="password2" value={password2} onChange={handlePassword2}  placeholder="passwords must match"/>
                         {errors.password2 && (
                             <p className={css.error}>
                                 {errors.password2.message}

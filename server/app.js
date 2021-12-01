@@ -57,7 +57,10 @@ app.post('/login',(req,res)=>{
     }catch (err){
         res.status(200).json({success: false, message: "missing or invalid form input"});
     }
-    
+    if(!(req.body.email.indexOf("@nyu.edu", req.body.email.length - "@nyu.edu".length) !== -1)){
+        res.status(200).json({success: false, message: 'Only nyu.edu emails allowed!'});
+        return;
+    }
 
     if (!(req.body.password && req.body.email)){
         res.json({success: false, message: "form values missing!"});
@@ -121,6 +124,10 @@ app.post('/register',(req,res)=>{
     }
     catch (err) { 
         res.status(200).json({success: false, message: "missing or invalid form input"});
+    }
+    if(!(req.body.email.indexOf("@nyu.edu", req.body.email.length - "@nyu.edu".length) !== -1)){
+        res.status(200).json({success: false, message: 'Only nyu.edu emails allowed!'});
+        return;
     }
 
     if (!(req.body.password && req.body.username && req.body.email)){

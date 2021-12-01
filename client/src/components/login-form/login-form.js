@@ -74,11 +74,11 @@ const LoginForm = (props) => {
                                     pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                                 })
                             } 
-                            className={css.textInput} type="text" name="email" value={email} onChange={handleEmail}/>
+                            className={css.textInput} type="text" name="email" value={email} onChange={handleEmail} placeholder="nyu.edu only"/>
                         {errors.email && <p className={css.error}>Invalid or missing email.</p>}
                     </div>
                     <div className={css.inputBlock}>
-                        Password: <input {...register('password', {required: true,minLength: 8})} className={css.passwordInput} type="password" name="password" value={password} onChange={handlePassword}/>
+                        Password: <input {...register('password', {required: true,minLength: 8})} className={css.passwordInput} type="password" name="password" value={password} onChange={handlePassword}  placeholder="minimum 8 characters"/>
                         {errors.password && <p className={css.error}>Invalid or missing password.</p>}
                     </div>
                     <div className={css.inputBlock}><input className={css.subBtn} type="submit" value="Login"/></div>
