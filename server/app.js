@@ -210,7 +210,16 @@ app.post('/request-course', auth, async (req,res)=>{
             program: ['test6']
         });
 
-        const matchedCourses = allCourses.filter((course)=>{return course.code===code});
+        function secureFilter(param, property, tester){
+            if (!param){
+                return [];
+            }
+            return param.filter((el)=>{return el[property]=== tester})
+        }
+        
+        const matchedCourses = secureFilter(allCourses,'code',code);
+
+        // const matchedCourses = allCourses.filter((course)=>{return course.code===code});
         if (matchedCourses.length<1){
             res.json({success: false, message: "could not find course specified!"});
             return;
