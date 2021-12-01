@@ -7,6 +7,7 @@ import {
 } from "../../containers/rootContainers";
 
 import Logout from "../logout/logout";
+import MyReviewsBtn from "../myreviewsbtn/myreviewsbtn";
 
 const Headerbar = (props) => {
     const [user,setUser] = useState(null);
@@ -29,7 +30,15 @@ const Headerbar = (props) => {
                             Hello, {user}!
                         </UserDisplay>
                         <WebsiteTitle>NYUAD COURSE REVIEW</WebsiteTitle>
-                        <Logout />
+                        <Row>
+                            <PaddedDiv>
+                                <MyReviewsBtn/>
+                            </PaddedDiv>
+                            <PaddedDiv>
+                                <Logout/>
+                            </PaddedDiv>
+                        </Row>
+                        
                     </HeaderRow>
                 </HeaderContainer>
             </HeaderDiv>
@@ -40,6 +49,11 @@ const Headerbar = (props) => {
 const UserDisplay = styled.p`
     font-size: 20px;
     text-transform: capitalize;
+`;
+
+const PaddedDiv = styled.div`
+    padding: 0px 5px;
+    display: flex;
 `;
 
 const WebsiteTitle = styled.p`
