@@ -96,11 +96,12 @@ const UserReviews = (props) =>{
                                 workload: reviews[rev].review.workload
                             }
                         }
-                        courseCode = {courseCodePath}
+                        courseCode = {reviews[rev].course}
                         text={reviews[rev].review.description}
                         uniqueId={reviews[rev]._id}
                         handleEditOrDelete = {handleReviewEdit}
                         currentUser = {reviews[rev].currentUser ? reviews[rev].currentUser : false}
+                        courseCodeDisplay={true}
                     />)
                     })
             }

@@ -32,11 +32,19 @@ const CourseReviewItem = (props) =>{
                     <ReviewCard>
                         <Col1>
 
-                            <ReviewRow>
-                                <Col1>
-                                    <UserName>Posted by: {" "+props.username}</UserName>
-                                </Col1>
-                            </ReviewRow>
+                            {props.courseCodeDisplay ? (
+                                <ReviewRow>
+                                    <Col1>
+                                        <CourseCodeDiv>Course: {" "+props.courseCode}</CourseCodeDiv>
+                                    </Col1>
+                                </ReviewRow>) : (
+                                <ReviewRow>
+                                    <Col1>
+                                        <UserName>Posted by: {" "+props.username}</UserName>
+                                    </Col1>
+                                </ReviewRow>
+                            )
+                            }
 
                             <ReviewRow>
                                 {Object.keys(props.metrics)
@@ -110,6 +118,14 @@ const ReviewRow = styled.div`
 `;
 
 const UserName = styled.p`
+    color: black;
+    font-weight: bold;
+    text-align: left;
+    border-bottom: 1px solid grey;
+    margin: 5px 0;
+`;
+
+const CourseCodeDiv = styled.p`
     color: black;
     font-weight: bold;
     text-align: left;
