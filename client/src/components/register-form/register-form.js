@@ -116,6 +116,7 @@ const RegisterForm = (props) => {
                     </div>
                     <div className={css.inputBlock}><input className={css.subBtn} type="submit" value="Register"/></div>
                 </form>
+                <a href="/login">Login instead!</a>
             </div>
             )
             }

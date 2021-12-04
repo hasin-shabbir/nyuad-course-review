@@ -87,7 +87,6 @@ const LoginForm = (props) => {
             )
             }
             <a href="/register">New user? Register instead!</a>
-            
         </>
     )
 };
