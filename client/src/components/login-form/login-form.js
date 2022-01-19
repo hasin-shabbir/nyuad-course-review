@@ -65,11 +65,11 @@ const LoginForm = (props) => {
             {redirect ? 
             (<Navigate to={redirect} />) 
             :
-            (<div>
-            <h1>Login</h1>
+            (<div className={css.formWrapper}>
+            <h1 className={css.formHeading}>Login</h1>
                 <form className={css.form} method="POST" onSubmit={handleSubmit(handleLogin)}>
                     <div className={css.inputBlock}>
-                        Your Email: <input {...register('email', {
+                        <p className={css.formLabel}>Email</p> <input {...register('email', {
                                     required: true, 
                                     pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                                 })
@@ -78,15 +78,15 @@ const LoginForm = (props) => {
                         {errors.email && <p className={css.error}>Invalid or missing email.</p>}
                     </div>
                     <div className={css.inputBlock}>
-                        Password: <input {...register('password', {required: true,minLength: 8})} className={css.passwordInput} type="password" name="password" value={password} onChange={handlePassword}  placeholder="minimum 8 characters"/>
+                    <p className={css.formLabel}>Password</p> <input {...register('password', {required: true,minLength: 8})} className={css.passwordInput} type="password" name="password" value={password} onChange={handlePassword}  placeholder="********"/>
                         {errors.password && <p className={css.error}>Invalid or missing password.</p>}
                     </div>
                     <div className={css.inputBlock}><input className={css.subBtn} type="submit" value="Login"/></div>
                 </form>
+                <a href="/register">New user? Register instead!</a>
             </div>
             )
             }
-            <a href="/register">New user? Register instead!</a>
         </>
     )
 };

@@ -1,5 +1,26 @@
+body{
+    background-color: #57068c;
+}
+
+.formWrapper{
+    background-color: white;
+    width: 500px;
+    margin: 0 auto;
+    padding: 32px;
+}
+
+.formHeading{
+    margin: 0;
+}
+
+.formLabel{
+    margin: 0 0 0 0;
+}
+
 .inputBlock{
 	padding-bottom: 0.5em;
+    display: flex;
+    flex-direction: column;
 }
 
 .textInput, .passwordInput {
@@ -12,13 +33,21 @@
     background-color: lightblue;
 }
 .subBtn{
-    background-color: #57068c;
+    background-color: #fff;
     border: none;
-    color: white;
+    color: #57068c;
     padding: 16px 32px;
     text-decoration: none;
     margin: 4px 2px;
     cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+    border: 1px solid #57068c;
+}
+
+.subBtn:hover{
+    background-color: #57068c;
+    color: #fff;
 }
 
 .error{
@@ -26,5 +55,5 @@
 }
 
 .form{
-    margin: 10  px 0 20px;
+    margin: 10px 0 20px;
 }
