@@ -69,7 +69,7 @@ const LoginForm = (props) => {
             <h1>Login</h1>
                 <form className={css.form} method="POST" onSubmit={handleSubmit(handleLogin)}>
                     <div className={css.inputBlock}>
-                        Email: <input {...register('email', {
+                        Your Email: <input {...register('email', {
                                     required: true, 
                                     pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                                 })
