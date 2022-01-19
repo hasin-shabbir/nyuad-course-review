@@ -77,15 +77,15 @@ const RegisterForm = (props) => {
             {redirect ? 
             (<Navigate to={redirect} />) 
             :
-            (<div>
-            <h1>Register</h1>
+            (<div className={css.formWrapper}>
+            <h1 className={css.formHeading}>Register</h1>
                 <form className={css.form} method="POST" onSubmit={handleSubmit(handleRegister)}>
                     <div className={css.inputBlock}>
-                        Username: <input {...register('username', {required: true})} className={css.textInput} type="text" name="username" value={userName} onChange={handleUsername} placeholder="johndoe123"/>
+                        <p className={css.formLabel}>Username</p> <input {...register('username', {required: true})} className={css.textInput} type="text" name="username" value={userName} onChange={handleUsername} placeholder="johndoe123"/>
                         {errors.username && <p className={css.error}>Username is required.</p>}
                     </div>
                     <div className={css.inputBlock}>
-                        Email: <input {...register('email', {
+                        <p className={css.formLabel}>Email</p> <input {...register('email', {
                                     required: true, 
                                     pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                                 })
@@ -94,11 +94,11 @@ const RegisterForm = (props) => {
                         {errors.email && <p className={css.error}>Invalid or missing email.</p>}
                     </div>
                     <div className={css.inputBlock}>
-                        Password: <input {...register('password', {required: true,minLength: 8})} className={css.passwordInput} type="password" name="password" value={password} onChange={handlePassword} placeholder="minimum 8 characters"/>
+                       <p className={css.formLabel}>Password</p> <input {...register('password', {required: true,minLength: 8})} className={css.passwordInput} type="password" name="password" value={password} onChange={handlePassword} placeholder="minimum 8 characters"/>
                         {errors.password && <p className={css.error}>Invalid or missing password.</p>}
                     </div>
                     <div className={css.inputBlock}>
-                        Re-enter password: <input {...register("password2", {
+                        <p className={css.formLabel}>Re-enter password</p> <input {...register("password2", {
                             required: "Please confirm password!",
                             validate: {
                                 matchesPreviousPassword: (value) => {
