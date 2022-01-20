@@ -24,6 +24,8 @@ const reviewInfo = new mongoose.Schema({
     difficulty: {type: Number, required: true}, //difficulty rating (integer between 0-100)
     grading: {type: Number, required: true}, // grading rating (integer between 0-100)
     workload: {type: Number, required: true}, //workload rating (integer between 0-100)
+    upvotes: {type: Number, default: 0}, //upvotes (integer)
+    downvotes: {type: Number, default: 0} //downvotes (integer)
 });
 
 // an course review for a course
