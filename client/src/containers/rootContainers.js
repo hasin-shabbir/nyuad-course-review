@@ -53,3 +53,9 @@ export const FormShower = styled.p`
         color: white;
     }
 `;
+
+export const VoteWrapper = styled.div`
+    padding: 2px;
+    display: inline-block;
+    cursor: pointer;
+`;
