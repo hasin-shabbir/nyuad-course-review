@@ -3,6 +3,8 @@ import Courselink from "../courselink/courselink"
 import SearchCourse from "../searchCourse/SearchCourse";
 import Headerbar from "../headerbar/headerbar";
 
+import css from "./courselist.module.css";
+
 const CourseList = (props) => {
     const [success,setSuccess] = useState(true);
     const [courses,setCourses] = useState(null);
