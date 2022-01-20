@@ -10,7 +10,6 @@ import Logout from "../logout/logout";
 import CourseListButton from "../courselistbutton/courselistbutton";
 import MyReviewsBtn from "../myreviewsbtn/myreviewsbtn";
 import InfoUpdateBtn from "../infoupdatebtn/infoupdatebtn";
-import CourseList from "../courselist/courselist";
 
 const Headerbar = (props) => {
     const [user,setUser] = useState(null);

@@ -10,8 +10,8 @@ import './App.css';
 
 const CourseList = React.lazy(()=>import('./components/courselist/courselist'));
 const CourseReview = React.lazy(()=>import('./components/coursereview/coursereview'));
-const LoginForm = React.lazy(()=>import('./components/login-form/login-form'));
-const RegisterForm = React.lazy(()=>import('./components/register-form/register-form'));
+const LoginPage = React.lazy(()=>import('./components/login-page/login-page'));
+const RegisterPage = React.lazy(()=>import('./components/register-page/register-page'));
 const Courserequestform = React.lazy(()=>import('./components/courserequestform/courserequestform'));
 const UserReviews = React.lazy(()=>import('./components/userreviews/userreviews'));
 const UserInfoForm = React.lazy(()=>import("./components/userinfo-form/userinfo-form"));
@@ -27,14 +27,14 @@ function App() {
             <Route path="/login" 
               element={
                 <Suspense fallback={<div>Loading...</div>}>  
-                  <LoginForm/>
+                  <LoginPage/>
                 </Suspense>
               }
             />
             <Route path="/register" 
               element= {
                 <Suspense fallback={<div>Loading...</div>}>  
-                  <RegisterForm/>
+                  <RegisterPage/>
                 </Suspense>
               }
             />
