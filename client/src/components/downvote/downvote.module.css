@@ -2,6 +2,10 @@
     color: red;
 }
 
-.Red:hover{
+.Wrapper:hover .Red{
+    color: maroon;
+}
+
+.DarkRed{
     color: maroon;
 }

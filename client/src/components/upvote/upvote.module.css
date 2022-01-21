@@ -2,6 +2,10 @@
     color: rgb(9, 148, 9);
 }
 
-.Green:hover{
+.Wrapper:hover .Green{
+    color: rgb(1, 54, 1);
+}
+
+.DarkGreen{
     color: rgb(1, 54, 1);
 }

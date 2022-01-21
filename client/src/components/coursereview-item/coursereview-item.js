@@ -70,7 +70,11 @@ const CourseReviewItem = (props) =>{
 
                             {!props.currentUser && (
                                 <>
-                                    <Votebar />
+                                    <Votebar 
+                                        reviewId={props.uniqueId} 
+                                        voteCount = {props.voteCount}
+                                        currentVote = {props.currentVote}
+                                    />
                                 </>
                                 )
                             }

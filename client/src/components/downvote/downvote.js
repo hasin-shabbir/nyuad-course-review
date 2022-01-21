@@ -8,8 +8,8 @@ import css from "./downvote.module.css";
 
 const Downvote = (props) => {
     return (
-        <VoteWrapper>
-            <FontAwesomeIcon icon={faChevronDown} className={css.Red}/>
+        <VoteWrapper onClick={props.onClick} className={css.Wrapper}>
+            <FontAwesomeIcon icon={faChevronDown} className={props.currentVote === true ? css.DarkRed : css.Red}/>
         </VoteWrapper>
     );
 }

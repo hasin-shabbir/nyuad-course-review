@@ -167,6 +167,76 @@ app.post('/register',(req,res)=>{
     }
 });
 
+app.post('/vote',auth,(req,res)=>{  
+    const uid = req.body.rev_id;
+    const voteType = req.body.voteType;
+    const userEmail = req.user.email;
+    
+    CourseReview.findById(uid,(err,rev)=>{
+        if(!err){
+            let upvotes = rev.review.upvotes;
+            let downvotes = rev.review.downvotes;
+            let currentVote;
+
+            if (voteType==='upvote'){
+                if (upvotes.includes(userEmail)){ //remove own upvote
+                    upvotes.splice(upvotes.indexOf(userEmail), 1);
+                    currentVote = 'none';
+                }
+                else {
+                    if (downvotes.includes(userEmail)){ //switch from up to downvote
+                        downvotes.splice(downvotes.indexOf(userEmail), 1);
+                    }
+                    upvotes = [...upvotes,userEmail];
+                    currentVote = 'up';
+                }     
+            }
+            else if (voteType==='downvote'){
+                if (downvotes.includes(userEmail)){ //remove own downvote
+                    downvotes.splice(downvotes.indexOf(userEmail), 1);
+                    currentVote = 'none';
+                }
+                else{
+                    if (upvotes.includes(userEmail)){ //switch from down to upvote
+                        upvotes.splice(upvotes.indexOf(userEmail), 1);
+                    }
+                    downvotes = [...downvotes,userEmail];
+                    currentVote = 'down';
+                }
+            }
+
+            const voteCount = upvotes.length + (downvotes.length * -1);
+
+            const review = {
+                description: rev.review.description,
+                quality: rev.review.quality,
+                difficulty: rev.review.difficulty,
+                grading: rev.review.grading,
+                workload: rev.review.workload,
+                votes: voteCount,
+                upvotes: upvotes,
+                downvotes: downvotes
+            };
+
+            const updatedReview = {
+                review: review
+            }
+ 
+            CourseReview.findByIdAndUpdate(uid,updatedReview,(err,updatedRev)=>{
+                if(!err){
+                    console.log("voted");
+                    res.status(200).json({success: "votes updated", votes: voteCount, currentVote: currentVote});
+                }else{
+                    res.json({success: false, message: "could not update vote! try again later"});
+                }
+            })
+        }
+        else{
+            res.json({success: false, message: "could not find review! try again later"});
+        } 
+    });   
+});
+
 app.post('/updateUsername',auth,(req,res)=>{
     //register form handling
     const schema = Joi.object({
@@ -369,7 +439,18 @@ app.get("/get-reviews/:courseCode",auth,(req,res)=>{
                 if (rev.user_email===userEmail){
                     return {...rev._doc,currentUser: true};
                 }else{
-                    return {...rev._doc,currentUser: false};
+                    let returnDoc = {...rev._doc,currentUser: false};
+                    if (rev._doc.review.upvotes.includes(userEmail)){
+                        returnDoc = {...returnDoc,currentVote: 'up'}
+                    }
+                    else if (rev._doc.review.downvotes.includes(userEmail)){
+                        returnDoc = {...returnDoc,currentVote: 'down'}
+                    }
+                    else{
+                        returnDoc = {...returnDoc,currentVote: 'none'}
+                    }
+
+                    return returnDoc;
                 }
             });
             res.json(revs);

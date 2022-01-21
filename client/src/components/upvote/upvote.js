@@ -8,8 +8,8 @@ import css from "./upvote.module.css";
 
 const Upvote = (props) => {
     return (
-        <VoteWrapper>
-            <FontAwesomeIcon icon={faChevronUp}  className={css.Green}/>
+        <VoteWrapper onClick={props.onClick} className={css.Wrapper}>
+            <FontAwesomeIcon icon={faChevronUp}  className={props.currentVote === true ? css.DarkGreen : css.Green}/>
         </VoteWrapper>
     );
 }
