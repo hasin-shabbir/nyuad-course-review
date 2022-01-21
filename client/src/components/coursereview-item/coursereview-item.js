@@ -10,6 +10,7 @@ import {
 } from "../../containers/rootContainers";
 
 import CourseReviewForm from "../coursereview-form/coursereview-form";
+import Votebar from "../votebar/votebar";
 
 const CourseReviewItem = (props) =>{
     const [editFormDisplay, setEditFormDisplay] = useState(false);
@@ -67,6 +68,17 @@ const CourseReviewItem = (props) =>{
                                 </Col1>
                             </ReviewRow>
 
+                            {!props.currentUser && (
+                                <>
+                                    <Votebar 
+                                        reviewId={props.uniqueId} 
+                                        voteCount = {props.voteCount}
+                                        currentVote = {props.currentVote}
+                                    />
+                                </>
+                                )
+                            }
+
                             {props.currentUser && (
                                 <ReviewRow>
                                     <Col1>
@@ -107,7 +119,6 @@ const ReviewCard = styled.div`
     cursor: default;
     display: flex;
     border: 1px solid purple;
-    min-height: 200px;
     background-color: #dedede;
     padding: 2px 10px;
     margin-bottom: 10px;

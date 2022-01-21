@@ -1,0 +1,11 @@
+.Red {
+    color: red;
+}
+
+.Wrapper:hover .Red{
+    color: maroon;
+}
+
+.DarkRed{
+    color: maroon;
+}

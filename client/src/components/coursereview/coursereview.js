@@ -131,6 +131,8 @@ const CourseReview = (props) =>{
                         uniqueId={reviews[rev]._id}
                         handleEditOrDelete = {handleReviewEdit}
                         currentUser = {reviews[rev].currentUser ? reviews[rev].currentUser : false}
+                        voteCount = {reviews[rev].review.votes}
+                        currentVote={reviews[rev].currentVote}
                     />)
                     })
             }
