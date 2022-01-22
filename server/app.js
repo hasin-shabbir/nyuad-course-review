@@ -224,7 +224,6 @@ app.post('/vote',auth,(req,res)=>{
  
             CourseReview.findByIdAndUpdate(uid,updatedReview,(err,updatedRev)=>{
                 if(!err){
-                    console.log("voted");
                     res.status(200).json({success: "votes updated", votes: voteCount, currentVote: currentVote});
                 }else{
                     res.json({success: false, message: "could not update vote! try again later"});
